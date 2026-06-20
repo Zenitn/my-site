@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Пансионат «Седые Воробушки»</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link rel="shortcut icon" href="https://i.imgpeek.com/SihGmZm7lX6n" type="image/x-icon">
+
+    <!-- FontAwesome 6 (Free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+                   CSS-ПЕРЕМЕННЫЕ (ЦВЕТОВАЯ СХЕМА)
+                   ============================================================ */
+        :root {
+            --primary: #1E90FF;
+            --primary-light: rgba(30, 144, 255, 0.10);
+            --primary-medium: rgba(30, 144, 255, 0.25);
+            --primary-dark: #1877d6;
+            --white: #FFFFFF;
+            --gray-bg: #f7f9fc;
+            --gray-border: #e9edf2;
+            --gray-text: #6a7b8f;
+            --shadow-sm: 0 4px 20px rgba(30, 144, 255, 0.08);
+            --shadow-md: 0 12px 40px rgba(30, 144, 255, 0.12);
+            --shadow-lg: 0 24px 64px rgba(30, 144, 255, 0.18);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font-heading: 'Comfortaa', cursive;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        /* ============================================================
+                   RESET & БАЗА
+                   ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400;
+            color: #2d3748;
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        ul {
+            list-style: none;
+        }
+
+        /* ============================================================
+                   КАСТОМНЫЙ СКРОЛЛБАР
+                   ============================================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--gray-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+            border: 2px solid var(--gray-bg);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ============================================================
+                   ОБЩИЕ КЛАССЫ
+                   ============================================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 90px 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 2.4rem;
+            color: #1a2634;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--gray-text);
+            margin-bottom: 48px;
+            font-weight: 300;
+        }
+
+        .section-title .accent {
+            color: var(--primary);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* ============================================================
+                   ЭФФЕКТ МАТОВОГО СТЕКЛА (GLASSMORPHISM)
+                   ============================================================ */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ============================================================
+                   КАСТОМНЫЙ РАЗДЕЛИТЕЛЬ (увеличенный пунктир)
+                   ============================================================ */
+        .section-divider-custom {
+            border: none;
+            height: 8px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(30, 144, 255, 0.25) 0px,
+                rgba(30, 144, 255, 0.25) 30px,
+                transparent 30px,
+                transparent 60px
+            );
+            width: 100%;
+            margin: 0;
+        }
+
+        /* ============================================================
+                   НАВИГАЦИЯ (фиксированная, матовое стекло)
+                   ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-bottom: none;
+            transition: box-shadow 0.3s ease;
+        }
+        .navbar.scrolled {
+            box-shadow: 0 4px 40px rgba(30, 144, 255, 0.06);
+        }
+
+        /* Прогресс-бар чтения (горизонтальный) под навигацией */
+        #progress-container {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(200, 200, 200, 0.3);
+            z-index: 999;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+        }
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.08s linear;
+            border-radius: 0 2px 2px 0;
+        }
+
+        @media (max-width: 767px) {
+            #progress-container {
+                top: 64px;
+            }
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1a2634;
+            letter-spacing: -0.3px;
+            flex-shrink: 0;
+        }
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .nav-logo-text {
+            flex-shrink: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 220px;
+        }
+        .nav-logo-text span {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-menu a {
+            font-size: 0.92rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 30px;
+            color: #3d4a5a;
+            transition: all 0.3s ease;
+            letter-spacing: 0.2px;
+            position: relative;
+        }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .nav-menu a:hover::after {
+            width: 60%;
+        }
+        .nav-menu a:hover {
+            color: var(--primary);
+            background: rgba(30, 144, 255, 0.08);
+        }
+        .nav-menu a.active {
+            color: var(--white);
+            background: var(--primary);
+            box-shadow: 0 4px 16px rgba(30, 144, 255, 0.25);
+        }
+        .nav-menu a.active::after {
+            display: none;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.6rem;
+            color: #1a2634;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px 8px;
+            transition: color 0.3s ease;
+            flex-shrink: 0;
+        }
+        .hamburger:hover {
+            color: var(--primary);
+        }
+
+        /* ============================================================
+                   HERO (Главная)
+                   ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 120px 0 80px;
+            background-color: #f8fcff;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, var(--primary) 2.5px, transparent 2.5px);
+            background-size: 40px 40px;
+            mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 85%);
+            -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 85%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .hero-content {
+            max-width: 620px;
+            text-align: left;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            line-height: 1.15;
+            color: #0f1a2b;
+            margin-bottom: 18px;
+            letter-spacing: -1px;
+        }
+        .hero-content h1 .highlight {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .hero-content .subtitle {
+            font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+            color: var(--gray-text);
+            font-weight: 300;
+            margin-bottom: 32px;
+            letter-spacing: 0.4px;
+        }
+
+        .changing-word {
+            display: inline-block;
+            min-width: 5.5em;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--primary);
+            transition: opacity 0.3s ease;
+            opacity: 1;
+            text-align: left;
+        }
+        .changing-word.fade {
+            opacity: 0;
+        }
+
+        /* ============================================================
+                   О ПАНСИОНАТЕ (расширенная секция)
+                   ============================================================ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: #3d4a5a;
+            margin-bottom: 18px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .about-text .about-group {
+            margin-bottom: 28px;
+        }
+        .about-text .about-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-text .about-group h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #1a2634;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .about-text .about-group h4 i {
+            color: var(--primary);
+            font-size: 1.2rem;
+            width: 28px;
+            text-align: center;
+        }
+
+        .about-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .about-image:hover {
+            transform: scale(1.01);
+            box-shadow: var(--shadow-lg);
+        }
+        .about-image img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Карточки-фичи под основным контентом */
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .about-feature-card {
+            padding: 28px 20px 24px;
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+            text-align: center;
+        }
+        .about-feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 0.6);
+            border-color: var(--primary-light);
+        }
+
+        .about-feature-card .feature-icon {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: block;
+        }
+        .about-feature-card h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #1a2634;
+            margin-bottom: 6px;
+        }
+        .about-feature-card p {
+            font-size: 0.92rem;
+            color: var(--gray-text);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+                   ПЕРСОНАЛ
+                   ============================================================ */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        .staff-list h3,
+        .staff-description h3 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #1a2634;
+            margin-bottom: 20px;
+        }
+
+        .staff-list ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .staff-list ul li {
+            font-size: 1.05rem;
+            color: #2d3748;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(4px);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .staff-list ul li:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            transform: translateX(6px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .staff-list ul li.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            transform: translateX(6px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .staff-description-box {
+            position: relative;
+            min-height: 240px;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.3s ease;
+            overflow: hidden;
+        }
+
+        .staff-description-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+        }
+
+        .staff-description-content.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .staff-description-content.default-text {
+            text-align: center;
+            color: var(--gray-text);
+            font-weight: 300;
+            font-size: 1.05rem;
+        }
+
+        .staff-description-content.default-text i {
+            display: block;
+            font-size: 2.8rem;
+            color: var(--primary);
+            opacity: 0.25;
+            margin-bottom: 16px;
+        }
+
+        .staff-description-content.default-text p {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .staff-description-content.default-text .hint {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .staff-description-content.desc-content .staff-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .staff-description-content.desc-content .staff-role {
+            font-weight: 300;
+            color: var(--gray-text);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .staff-description-content.desc-content .staff-text {
+            margin-top: 4px;
+            font-size: 1.05rem;
+            color: #2d3748;
+            line-height: 1.7;
+        }
+
+        /* ============================================================
+                   ДОСУГ — две колонки
+                   ============================================================ */
+        .leisure-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+
+        .leisure-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 24px;
+        }
+        .leisure-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            color: #2d3748;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-border);
+            font-weight: 400;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .leisure-list li:hover {
+            transform: translateX(6px);
+            color: var(--primary);
+        }
+        .leisure-list li i {
+            color: var(--primary);
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .leisure-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .leisure-image:hover {
+            transform: scale(1.01);
+            box-shadow: var(--shadow-lg);
+        }
+        .leisure-image img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ============================================================
+                   ФОТОГАЛЕРЕЯ
+                   ============================================================ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            aspect-ratio: 1 / 1;
+            background: var(--gray-bg);
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-md);
+            z-index: 2;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        /* ============================================================
+                   ОТЗЫВЫ
+                   ============================================================ */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .review-card {
+            padding: 32px 28px 28px;
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+        }
+        .review-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 0.6);
+            border-color: var(--primary-light);
+        }
+
+        .review-card .quote-icon {
+            color: var(--primary);
+            font-size: 1.8rem;
+            opacity: 0.25;
+            margin-bottom: 10px;
+        }
+        .review-card blockquote {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #2d3748;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+        .review-card .author {
+            font-weight: 600;
+            color: #1a2634;
+            font-size: 0.95rem;
+        }
+        .review-card .date {
+            font-size: 0.82rem;
+            color: var(--gray-text);
+            font-weight: 300;
+        }
+
+        /* ============================================================
+                   КОНТАКТЫ
+                   ============================================================ */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .contacts-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contacts-info .item {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 1.05rem;
+            color: #2d3748;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .contacts-info .item:hover {
+            background: var(--primary-light);
+            transform: translateX(6px);
+            border-color: var(--primary);
+        }
+        .contacts-info .item i {
+            font-size: 1.4rem;
+            color: var(--primary);
+            width: 32px;
+            text-align: center;
+        }
+        .contacts-info .item a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .contacts-info .item a:hover {
+            text-decoration: underline;
+        }
+
+        .contacts-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .contacts-social a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #2d3748;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .contacts-social a i {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+        .contacts-social a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        .contacts-social a:hover i {
+            color: var(--white);
+        }
+
+        .photo-placeholder {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--gray-text);
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+        .photo-placeholder i {
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.3;
+            margin-bottom: 12px;
+        }
+        .photo-placeholder:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ============================================================
+                   КНОПКА "НАВЕРХ"
+                   ============================================================ */
+        .scroll-top {
+            position: fixed;
+            bottom: 60px;
+            right: 30px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: var(--primary);
+            font-size: 1.4rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-top:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        /* ============================================================
+                   ФУТЕР
+                   ============================================================ */
+        .footer {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 28px 0;
+            margin-top: 20px;
+        }
+        .footer .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer .copy {
+            font-size: 0.9rem;
+            color: var(--gray-text);
+            font-weight: 300;
+        }
+        .footer .copy strong {
+            color: #1a2634;
+            font-weight: 600;
+        }
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+        .footer-social a {
+            color: var(--gray-text);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .footer-social a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+            background: rgba(30, 144, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* ============================================================
+                   АДАПТИВНОСТЬ
+                   ============================================================ */
+
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .leisure-list {
+                grid-template-columns: 1fr 1fr;
+            }
+            .about-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 20px 24px 32px;
+                gap: 4px;
+                box-shadow: 0 20px 48px rgba(0, 0, 0, 0.06);
+                transform: translateY(-120%);
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 0 0 var(--radius) var(--radius);
+            }
+            .nav-menu.open {
+                transform: translateY(0);
+            }
+            .nav-menu a {
+                font-size: 1rem;
+                padding: 12px 16px;
+                width: 100%;
+                text-align: center;
+                border-radius: 10px;
+            }
+            .nav-menu a::after {
+                display: none;
+            }
+
+            .nav-logo {
+                font-size: 1rem;
+            }
+            .nav-logo img {
+                height: 32px;
+            }
+            .nav-logo-text {
+                max-width: 140px;
+                font-size: 0.85rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .hero {
+                min-height: 90vh;
+                padding: 100px 0 60px;
+                text-align: center;
+            }
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+            .hero::before {
+                mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 90%);
+                -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 90%);
+            }
+
+            .about-grid,
+            .leisure-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .about-image img,
+            .leisure-image img {
+                height: 220px;
+            }
+            .about-features {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            .about-feature-card {
+                padding: 20px 14px 18px;
+            }
+            .about-feature-card .feature-icon {
+                font-size: 1.6rem;
+            }
+            .about-feature-card h4 {
+                font-size: 0.95rem;
+            }
+            .about-feature-card p {
+                font-size: 0.85rem;
+            }
+
+            .leisure-list {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            .leisure-list li {
+                font-size: 0.95rem;
+                padding: 8px 0;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contacts-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .contacts-info .item {
+                font-size: 0.95rem;
+                padding: 12px 14px;
+            }
+            .photo-placeholder {
+                height: 180px;
+            }
+            .contacts-social a {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+
+            .footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-social {
+                justify-content: center;
+            }
+            .staff-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .staff-description-box {
+                min-height: auto;
+                height: 280px;
+                overflow-y: auto;
+            }
+            .staff-description-content {
+                /* оставляем position: absolute, но родитель имеет фиксированную высоту и скролл */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .nav-logo-text {
+                max-width: 100px;
+                font-size: 0.75rem;
+            }
+            .nav-logo img {
+                height: 24px;
+            }
+            .hamburger {
+                font-size: 1.2rem;
+            }
+            .about-features {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .about-feature-card {
+                padding: 16px 12px 14px;
+            }
+            .about-feature-card .feature-icon {
+                font-size: 1.4rem;
+                margin-bottom: 6px;
+            }
+            .about-feature-card h4 {
+                font-size: 0.85rem;
+            }
+            .about-feature-card p {
+                font-size: 0.78rem;
+            }
+        }
+
+        /* ============================================================
+                   КАСКАДНЫЕ ЗАДЕРЖКИ ДЛЯ АНИМАЦИЙ
+                   ============================================================ */
+        .fade-item {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .section.visible .fade-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section.visible .fade-item.delay-1 {
+            transition-delay: 0.08s;
+        }
+        .section.visible .fade-item.delay-2 {
+            transition-delay: 0.16s;
+        }
+        .section.visible .fade-item.delay-3 {
+            transition-delay: 0.24s;
+        }
+        .section.visible .fade-item.delay-4 {
+            transition-delay: 0.32s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    НАВИГАЦИЯ
+    ============================================================ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Главная навигация">
+        <div class="container">
+            <a href="#hero" class="nav-logo">
+                <img src="https://i.imgpeek.com/SihGmZm7lX6n" alt="Логотип Пансионата Седые Воробушки" />
+                <span class="nav-logo-text"><span>Пансионат</span> «Седые Воробушки»</span>
+            </a>
+
+            <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+                <a href="#hero" class="active">Главная</a>
+                <a href="#about">О пансионате</a>
+                <a href="#rest">Персонал</a>
+                <a href="#leisure">Досуг</a>
+                <a href="#gallery">Фотогалерея</a>
+                <a href="#reviews">Отзывы</a>
+                <a href="#contacts">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    ПРОГРЕСС-БАР ЧТЕНИЯ
+    ============================================================ -->
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- ============================================================
+    HERO (Главная)
+    ============================================================ -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>
+                    Добро пожаловать в<br />
+                    <span class="highlight">«Седые Воробушки»</span>
+                </h1>
+                <p class="subtitle">
+                    <span class="changing-word" id="changingWord">Уютный</span>
+                    отдых в лесах Зябликового округа
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    РАЗДЕЛИТЕЛЬ
+    ============================================================ -->
+    <hr class="section-divider-custom" />
+
+    <!-- ============================================================
+    О ПАНСИОНАТЕ (расширенная секция)
+    ============================================================ -->
+    <section class="section" id="about">
+    <div class="container">
+        <div class="text-center fade-item">
+            <h2 class="section-title">О <span class="accent">пансионате</span></h2>
+            <p class="section-subtitle">Прекрасном месте для отдыха</p>
+        </div>
+
+        <!-- Первая строка: текст слева, фото справа -->
+        <div class="about-grid about-row-1 fade-item delay-1">
+            <div class="about-text">
+                <div class="about-group">
+                    <h4><i class="fas fa-leaf"></i> Природа и расположение</h4>
+                    <p>
+                        Наш пансионат «Седые воробушки» расположен в замечательных лесах Зябликового округа, всего в 7 километрах от города, что обеспечивает вам быструю связь с социумом и лёгкий доступ к городской инфраструктуре.
+Вокруг пансионата вас встретят радушные смешанные леса и множество неизвестных троп, ведущих в новые интересные места.
+                    </p>
+                </div>
+                <div class="about-group">
+                    <h4><i class="fas fa-home"></i> Проживание и комфорт</h4>
+                    <p>
+                        Внутри пансионата вам раскроются прекрасные одноместные номера с уютным и по-домашнему родным интерьером.
+У нас вы найдёте общую душевую, столовую, гостиную, бассейн и даже сауну!
+
+Помимо этого, наш пансионат обеспечит вашу безопасность... Ни один демон, дебилка, неупокоенный дух или гидра не достанет вас в чертоге нашего пансионата.
+                    </p>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://i.imgpeek.com/3_C_UcMjG66X" alt="Вид на пансионат Седые Воробушки" loading="lazy" />
+            </div>
+        </div>
+
+        <!-- Вторая строка: фото слева, текст справа -->
+        <div class="about-grid about-row-2 fade-item delay-2">
+            <div class="about-image">
+                <img src="https://i.imgpeek.com/AjiYpw_A_R8l" alt="Уют в пансионате" loading="lazy" />
+            </div>
+            <div class="about-text">
+                <div class="about-group">
+                    <h4><i class="fas fa-heartbeat"></i> Забота о здоровье</h4>
+                    <p>
+                        Пансионат заботится о вашем здоровье и безопасности. Мы ежегодно проводим дезинфекцию от блещей и тихоходок...
+Помимо защиты вас от беспозвоночных, мы ежемесячно проводим плановое облучение радиацией и ставим прививки от синдрома трясучки.
+                    </p>
+                </div>
+                <div class="about-group">
+                    <h4><i class="fas fa-smile"></i> Домашняя атмосфера</h4>
+                    <p>
+                        Тёплая атмосфера и внимание к каждой детали делают Пансионат "Седые Воробушки"
+                        настоящим домом для наших гостей. Мы стремимся создать обстановку,
+                        в которой вы сможете расслабиться, забыть о повседневных заботах
+                        и насладиться каждым моментом. Наш персонал всегда готов помочь
+                        и сделать ваше пребывание максимально комфортным.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Карточки-фичи -->
+        <div class="about-features fade-item delay-3">
+            <div class="about-feature-card">
+                <span class="feature-icon"><i class="fas fa-tree"></i></span>
+                <h4>Чистый воздух</h4>
+                <p>Лес вокруг пансионата наполняет воздух целебными фитонцидами и радиацией</p>
+            </div>
+            <div class="about-feature-card">
+                <span class="feature-icon"><i class="fas fa-bed"></i></span>
+                <h4>Уютные номера</h4>
+                <p>Почти совеременный дизайн, комфортная мебель и полный набор удобств</p>
+            </div>
+            <div class="about-feature-card">
+                <span class="feature-icon"><i class="fas fa-apple-alt"></i></span>
+                <h4>Здоровое питание</h4>
+                <p>Сбалансированное меню из свежих местных продуктов и фабрикатов</p>
+            </div>
+            <div class="about-feature-card">
+                <span class="feature-icon"><i class="fas fa-heart"></i></span>
+                <h4>Индивидуальный подход</h4>
+                <p>Внимание к каждому гостю и забота о вашем комфорте</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- ============================================================
+    ПЕРСОНАЛ
+    ============================================================ -->
+    <section class="section" id="rest" style="background: var(--gray-bg);">
+        <div class="container">
+            <div class="text-center fade-item">
+                <h2 class="section-title">Наш <span class="accent">персонал</span></h2>
+                <p class="section-subtitle">Забота и профессионализм в каждой детали</p>
+            </div>
+
+            <div class="staff-grid">
+                <div class="staff-list fade-item delay-1">
+                    <h3>Команда пансионата</h3>
+                    <ul id="staffList">
+                        <li data-staff="cook">Повар</li>
+                        <li data-staff="gardener">Садовник</li>
+                        <li data-staff="watchman">Сторож</li>
+                        <li data-staff="concierge">Консьерж</li>
+                        <li data-staff="admin">Администратор</li>
+                        <li data-staff="cleaner">Уборщицы</li>
+                        <li data-staff="tech">Техник</li>
+                        <li data-staff="other">и другие</li>
+                    </ul>
+                </div>
+
+                <div class="staff-description fade-item delay-2">
+                    <h3>О сотруднике</h3>
+                    <div class="staff-description-box glass" id="staffDescription">
+                        <div class="staff-description-content default-text active" id="defaultText">
+                            <i class="fas fa-users"></i>
+                            <p>Каждый член нашей команды - профессионал своего дела. Мы ежедневно создаём для вас атмосферу уюта и комфорта. Среди наших сине-белых стен, вы встретите только улыбающихся работников</p>
+                            <p class="hint">Наведите на имя, чтобы узнать подробнее.</p>
+                        </div>
+                        <div class="staff-description-content desc-content" id="descContent">
+                            <div class="staff-name" id="descName"></div>
+                            <div class="staff-role" id="descRole"></div>
+                            <div class="staff-text" id="descText"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    ДОСУГ
+    ============================================================ -->
+    <section class="section" id="leisure">
+        <div class="container">
+            <div class="text-center fade-item">
+                <h2 class="section-title">Досуг и <span class="accent">удобства</span></h2>
+                <p class="section-subtitle">Всё для комфортного и не опасного пребывания</p>
+            </div>
+
+            <div class="leisure-grid">
+                <div class="fade-item delay-1">
+                    <ul class="leisure-list">
+                        <li><i class="fas fa-swimmer"></i> Бассейн с чистым хлором</li>
+                        <li><i class="fas fa-fire"></i> Сауна с весёлой старческой компанией</li>
+                        <li><i class="fas fa-dumbbell"></i> каменная дорожка вокруг здания для бега</li>
+                        <li><i class="fas fa-table-tennis"></i> Гостиная комната</li>
+                        <li><i class="fas fa-child"></i> Комната бесплатного пеленания детей</li>
+                        <li><i class="fas fa-wifi"></i> Бесплатный Ji-Fi на всей территории</li>
+                        <li><i class="fas fa-parking"></i> Охраняемая парковка и автобусная остановка</li>
+                        <li><i class="fas fa-utensils"></i> Местная кухня с 74-мя звёздами Михлен</li>
+                    </ul>
+                </div>
+                <div class="leisure-image fade-item delay-2">
+                    <img src="https://i.imgpeek.com/8YjEk_BvpS4-" alt="Досуг в пансионате Седые Воробушки" loading="lazy" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    ФОТОГАЛЕРЕЯ
+    ============================================================ -->
+    <section class="section" id="gallery" style="background: var(--gray-bg);">
+        <div class="container">
+            <div class="text-center fade-item">
+                <h2 class="section-title">Фото<span class="accent">галерея</span></h2>
+                <p class="section-subtitle">Мгновения отдыха в наших интерьерах и на природе</p>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item fade-item delay-1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAxqJlP_ZL_z9bva7ioFpfJLa_ynaPiZ-DbuuRuWXFtY11a8oOM8qvdDVu&s=10" alt="Фото пансионата 1" loading="lazy" />
+                </div>
+                <div class="gallery-item fade-item delay-2">
+                    <img src="https://pp.userapi.com/HoeUgyOFnWvFEWM6JMuFAVp9eo6StNFZQZnZVQ/SJfBevzYV6c.jpg" alt="Фото пансионата 2" loading="lazy" />
+                </div>
+                <div class="gallery-item fade-item delay-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIsQ09Qu4cWj7MYzLvUFFLVnbsQN4Y9xNMekN2JYxd70o053RmFj24bnc6&s=10" alt="Фото пансионата 3" loading="lazy" />
+                </div>
+                <div class="gallery-item fade-item delay-4">
+                    <img src="https://ic.pics.livejournal.com/vesti_svalbard/92172032/60990/60990_1000.jpg" alt="Фото пансионата 4" loading="lazy" />
+                </div>
+                <div class="gallery-item fade-item delay-1">
+                    <img src="https://s.101hotelscdn.ru/uploads/image/hotel_image/8330/556096.jpg" alt="Фото пансионата 5" loading="lazy" />
+                </div>
+                <div class="gallery-item fade-item delay-2">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4vPYyEwCE8PTYHYrpqy0nfBZ-Yd0exiIzlpGbaESdZZ2a6pslW2TJUgK8&s=10" alt="Фото пансионата 6" loading="lazy" />
+                </div>
+                <div class="gallery-item fade-item delay-3">
+                    <img src="https://i.imgpeek.com/3_C_UcMjG66X" alt="Фото пансионата 7" loading="lazy" />
+                </div>
+                <div class="gallery-item fade-item delay-4">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNmbhpZxJDMQMcm-0KMsmOc9olssAs_mBk34T18Qyuw58KwKaD5hfzpvo&s=10" alt="Фото пансионата 8" loading="lazy" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    ОТЗЫВЫ
+    ============================================================ -->
+    <section class="section" id="reviews">
+        <div class="container">
+            <div class="text-center fade-item">
+                <h2 class="section-title">Отзывы <span class="accent">гостей</span></h2>
+                <p class="section-subtitle">Что говорят о нас те, кто уже отдохнул</p>
+            </div>
+
+            <div class="reviews-grid">
+                <div class="review-card glass fade-item delay-1">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <blockquote>«Всё было хорошо и так-то отлично пока знакомого не утащили в вентиляцию»</blockquote>
+                    <div class="author">Аноним</div>
+                    <div class="date">9/10</div>
+                </div>
+                <div class="review-card glass fade-item delay-2">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <blockquote>«Отдыхали всей семьёй, Пансионат стал нашим домом во время слежки правительством VVS. Не нашли... рекомендуем»</blockquote>
+                    <div class="author">Семейство Н.</div>
+                    <div class="date">10/10</div>
+                </div>
+                <div class="review-card glass fade-item delay-3">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <blockquote>«Оч круто... не понравилось... Для моей красоты мало средств поддержания, но басейн ничего такой... и парни там ну просто МУА🫦»</blockquote>
+                    <div class="author">Светлана 175 метров от вас</div>
+                    <div class="date">7/10</div>
+                </div>
+                <div class="review-card glass fade-item delay-4">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <blockquote>«Классно, уютно, но соседа по номеру не могли облучить радиацией... Здесь очень плохо с облучением, но в среднем ничего»</blockquote>
+                    <div class="author">Хамамная леди</div>
+                    <div class="date">8/10</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    КОНТАКТЫ
+    ============================================================ -->
+    <section class="section" id="contacts" style="background: var(--gray-bg);">
+        <div class="container">
+            <div class="text-center fade-item">
+                <h2 class="section-title">Контакты</h2>
+                <p class="section-subtitle">Мы всегда на связи</p>
+            </div>
+
+            <div class="contacts-grid">
+                <div class="contacts-info fade-item delay-1">
+                    <div class="item glass">
+                        <i class="fas fa-map-pin"></i>
+                        <span>Зябликовый округ, 7 км от города</span>
+                    </div>
+                    <div class="item glass">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="https://t.me/GS_Boarding_House/9" target="_blank" rel="noopener">https://t.me/GS_Boarding_House/9</a>
+                    </div>
+                    <div class="item glass">
+                        <i class="fas fa-envelope"></i>
+                        <a href="https://t.me/GS_Boarding_House" target="_blank" rel="noopener">Наша страничка</a>
+                    </div>
+                    <div class="item glass">
+                        <i class="fas fa-clock"></i>
+                        <span>Ежедневно...</span>
+                    </div>
+
+                    <div class="contacts-social">
+                        <a href="https://t.me/Zenithca" target="_blank" rel="noopener">
+                            <i class="fab fa-telegram-plane"></i> Написать для вступления
+                        </a>
+                    </div>
+                </div>
+
+                <div class="photo-placeholder glass fade-item delay-2">
+<i class="fa-solid fa-paperclip"></i>                    <span>Пишите нам для вступления</span>
+                    <span style="font-size:0.8rem; opacity:0.6;">Вам почти всегда ответят...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    ФУТЕР
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="copy">
+                &copy; 2026 <strong>Пансионат «Седые Воробушки»</strong>
+            </div>
+            <div class="footer-social">
+                <a href="https://t.me/GS_Boarding_House" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    КНОПКА "НАВЕРХ"
+    ============================================================ -->
+    <button id="scrollTop" class="scroll-top" aria-label="Наверх">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ------------------------------------------------------------
+            // 1. МОБИЛЬНОЕ МЕНЮ (гамбургер)
+            // ------------------------------------------------------------
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+
+            hamburger.addEventListener('click', function() {
+                const isOpen = navMenu.classList.toggle('open');
+                this.setAttribute('aria-expanded', isOpen);
+                const icon = this.querySelector('i');
+                icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+            });
+
+            navMenu.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('open');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    hamburger.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+
+            // ------------------------------------------------------------
+            // 2. АКТИВНЫЙ ПУНКТ МЕНЮ ПРИ СКРОЛЛЕ
+            // ------------------------------------------------------------
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = navMenu.querySelectorAll('a');
+
+            function updateActiveLink() {
+                let current = '';
+                const scrollY = window.scrollY + 120;
+
+                sections.forEach(function(section) {
+                    const top = section.offsetTop;
+                    const height = section.offsetHeight;
+                    if (scrollY >= top && scrollY < top + height) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveLink, { passive: true });
+            window.addEventListener('load', updateActiveLink);
+
+            // ------------------------------------------------------------
+            // 3. ТЕНЬ НА НАВИГАЦИИ
+            // ------------------------------------------------------------
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                navbar.classList.toggle('scrolled', window.scrollY > 20);
+            }, { passive: true });
+
+            // ------------------------------------------------------------
+            // 4. INTERSECTION OBSERVER — появление секций
+            // ------------------------------------------------------------
+            const sectionEls = document.querySelectorAll('.section');
+            const sectionObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+            sectionEls.forEach(function(sec) {
+                sectionObserver.observe(sec);
+            });
+
+            // ------------------------------------------------------------
+            // 5. ПЛАВНЫЙ СКРОЛЛ ПО ЯКОРЯМ
+            // ------------------------------------------------------------
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetEl = document.querySelector(targetId);
+                    if (targetEl) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: targetEl.offsetTop - 72,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // ------------------------------------------------------------
+            // 6. КНОПКА "НАВЕРХ"
+            // ------------------------------------------------------------
+            const scrollTopBtn = document.getElementById('scrollTop');
+            window.addEventListener('scroll', function() {
+                scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+            }, { passive: true });
+
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // ------------------------------------------------------------
+            // 7. ПРОГРЕСС-БАР ЧТЕНИЯ
+            // ------------------------------------------------------------
+            const progressBar = document.getElementById('progress-bar');
+
+            function updateProgress() {
+                const scrollY = window.scrollY;
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                const percent = maxScroll > 0 ? (scrollY / maxScroll) * 100 : 0;
+                progressBar.style.width = percent + '%';
+            }
+
+            window.addEventListener('scroll', updateProgress, { passive: true });
+            window.addEventListener('resize', updateProgress, { passive: true });
+            updateProgress();
+
+            // ------------------------------------------------------------
+            // 8. ДИНАМИЧЕСКАЯ СМЕНА СЛОВА
+            // ------------------------------------------------------------
+            const wordElement = document.getElementById('changingWord');
+            const words = ['Уютный', 'Родной', 'Простой', 'Домашний'];
+            let currentIndex = 0;
+
+            function changeWord() {
+                wordElement.classList.add('fade');
+                setTimeout(function() {
+                    currentIndex = (currentIndex + 1) % words.length;
+                    wordElement.textContent = words[currentIndex];
+                    wordElement.classList.remove('fade');
+                }, 300);
+            }
+
+            setInterval(changeWord, 1500);
+
+            // ------------------------------------------------------------
+            // 9. ПЕРСОНАЛ: плавное переключение описания при наведении
+            // ------------------------------------------------------------
+            const staffList = document.getElementById('staffList');
+            const defaultText = document.getElementById('defaultText');
+            const descContent = document.getElementById('descContent');
+            const descName = document.getElementById('descName');
+            const descRole = document.getElementById('descRole');
+            const descText = document.getElementById('descText');
+
+            const staffData = {
+                cook: {
+                    name: 'Повар',
+                    role: 'Наша любимая шеф-повар',
+                    text: 'Готовит для вас блюда из свежих местных продуктов местного происхождения. Не учитывает диетические предпочтения, но всегда рад удивить кулинарными изысками этого сезона.'
+                },
+                gardener: {
+                    name: 'Садовник',
+                    role: 'Ботаник',
+                    text: 'Поддерживает красоту сада... Защищая участок от борщевика и охраняет арбуз.'
+                },
+                watchman: {
+                    name: 'Сторож',
+                    role: 'Безопасность и порядок',
+                    text: 'Круглосуточно следит за тишиной и безопасностью гостей. Ваш лучший охраник и телохоронитель города.'
+                },
+                concierge: {
+                    name: 'Консьерж',
+                    role: 'Сервис и помощь',
+                    text: 'Встречает гостей, помогает с багажом, организует трансфер и экскурсии. Знает почти все о пансионате и немного об окрестностях.'
+                },
+                admin: {
+                    name: 'Администратор',
+                    role: 'Пожилая львица',
+                    text: 'Координирует работу всех служб, решает любые вопросы гостей. Создаёт тёплую и доброжелательную атмосферу толлько на входе.'
+                },
+                cleaner: {
+                    name: 'Уборщицы',
+                    role: 'Чистота и уют',
+                    text: 'Ежедневно поддерживают безупречную чистоту в номерах и общих зонах. Благодаря им вы чувствуете себя как дома.'
+                },
+                tech: {
+                    name: 'Техник',
+                    role: 'Инженерное обеспечение',
+                    text: 'Отвечает за исправность оборудования, отопления, водоснабжения, облучения. Всегда на связи, чтобы устранить любые неполадки.'
+                },
+                other: {
+                    name: 'Прочие сотрудники',
+                    role: 'Команда поддержки',
+                    text: 'Каждый из них вносит свой вклад в общее дело. Вместе мы создаём для вас лучший отдых.'
+                }
+            };
+
+            function setActiveBlock(activeBlock) {
+                defaultText.classList.remove('active');
+                descContent.classList.remove('active');
+                if (activeBlock) {
+                    activeBlock.classList.add('active');
+                }
+            }
+
+            function showStaffDescription(key) {
+                const data = staffData[key];
+                if (!data) return;
+
+                descName.textContent = data.name;
+                descRole.textContent = data.role;
+                descText.textContent = data.text;
+
+                setActiveBlock(descContent);
+
+                const items = staffList.querySelectorAll('li');
+                items.forEach(li => {
+                    li.classList.toggle('active', li.dataset.staff === key);
+                });
+            }
+
+            function showDefaultText() {
+                setActiveBlock(defaultText);
+                const items = staffList.querySelectorAll('li');
+                items.forEach(li => li.classList.remove('active'));
+            }
+
+            const staffItems = staffList.querySelectorAll('li');
+            staffItems.forEach(li => {
+                li.addEventListener('mouseenter', function() {
+                    const key = this.dataset.staff;
+                    if (key && staffData[key]) {
+                        showStaffDescription(key);
+                    }
+                });
+            });
+
+            staffList.addEventListener('mouseleave', function() {
+                showDefaultText();
+            });
+
+            showDefaultText();
+
+            // ------------------------------------------------------------
+            // 10. ДОПОЛНИТЕЛЬНАЯ ЛОГИКА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ (touch/click)
+            // ------------------------------------------------------------
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            if (isTouchDevice) {
+                const items = staffList.querySelectorAll('li');
+                let activeItem = null;
+
+                function handleStaffClick(e) {
+                    const li = e.currentTarget;
+                    const key = li.dataset.staff;
+                    if (!key || !staffData[key]) return;
+
+                    e.stopPropagation();
+
+                    // Если кликнули на уже активный элемент — сбрасываем
+                    if (li.classList.contains('active')) {
+                        showDefaultText();
+                        items.forEach(item => item.classList.remove('active'));
+                        activeItem = null;
+                        return;
+                    }
+
+                    // Показываем описание для этого сотрудника
+                    showStaffDescription(key);
+                    items.forEach(item => item.classList.remove('active'));
+                    li.classList.add('active');
+                    activeItem = li;
+                }
+
+                items.forEach(li => {
+                    li.addEventListener('click', handleStaffClick);
+                });
+
+                // При клике вне списка и вне блока описания — сбрасываем
+                document.addEventListener('click', function(e) {
+                    const target = e.target;
+                    const isInsideList = staffList.contains(target);
+                    const isInsideDesc = document.getElementById('staffDescription').contains(target);
+                    if (!isInsideList && !isInsideDesc) {
+                        if (activeItem) {
+                            showDefaultText();
+                            items.forEach(item => item.classList.remove('active'));
+                            activeItem = null;
+                        }
+                    }
+                });
+            }
+
+        })();
+    </script>
+
+</body>
+</html>
