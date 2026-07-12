@@ -1587,6 +1587,44 @@
         .section.visible .fade-item.delay-4 {
             transition-delay: 0.32s;
         }
+
+        /* ============================================================
+   ОТКЛЮЧАЕМ АНИМАЦИИ НА МОБИЛЬНЫХ
+   ============================================================ */
+@media (max-width: 767px) {
+  .section {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .fade-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .fade-item.delay-1,
+  .fade-item.delay-2,
+  .fade-item.delay-3,
+  .fade-item.delay-4 {
+    transition-delay: 0s !important;
+  }
+
+  /* Также ускоряем появление загружаемых блоков */
+  #aboutContent .about-dynamic-grid,
+  #aboutContent .about-important,
+  #featuresContent .about-feature-card,
+  #reviewsContent .review-card,
+  #rulesContent .rules-block,
+  #residentsContent .residents-world,
+  #residentsContent .residents-extra-block,
+  #registrationContent .reg-block {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
     </style>
 </head>
 
@@ -1703,7 +1741,7 @@
         <div class="container">
             <div class="text-center fade-item">
                 <h2 class="section-title">Наш <span class="accent">персонал</span></h2>
-                <p class="section-subtitle">Администрация проекта</p>
+                <p class="section-subtitle">Забота и профессионализм в каждой детали</p>
             </div>
 
             <div class="staff-grid">
