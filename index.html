@@ -754,6 +754,8 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: var(--shadow-sm);
             transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+            display: flex;
+            flex-direction: column;
         }
         .review-card:hover {
             transform: translateY(-8px);
@@ -774,12 +776,38 @@
             color: #2d3748;
             font-weight: 300;
             font-style: italic;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
+            /* Обрезка через line-clamp */
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .review-card blockquote.expanded {
+            -webkit-line-clamp: unset;
+            overflow: visible;
+        }
+        .review-card .read-more-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 4px 0 8px 0;
+            font-size: 0.9rem;
+            align-self: flex-start;
+            transition: color 0.3s ease;
+        }
+        .review-card .read-more-btn:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
         }
         .review-card .author {
             font-weight: 600;
             color: #1a2634;
             font-size: 0.95rem;
+            margin-top: auto;
         }
         .review-card .date {
             font-size: 0.82rem;
@@ -842,6 +870,32 @@
             color: #1a2634;
             margin-bottom: 10px;
         }
+        .rules-content {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .rules-content.expanded {
+            -webkit-line-clamp: unset;
+            overflow: visible;
+        }
+        .rules-block .read-more-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 4px 0;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .rules-block .read-more-btn:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
         .rules-block p {
             font-size: 0.95rem;
             color: #2d3748;
@@ -1589,42 +1643,41 @@
         }
 
         /* ============================================================
-   ОТКЛЮЧАЕМ АНИМАЦИИ НА МОБИЛЬНЫХ
-   ============================================================ */
-@media (max-width: 767px) {
-  .section {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
+           ОТКЛЮЧАЕМ АНИМАЦИИ НА МОБИЛЬНЫХ
+           ============================================================ */
+        @media (max-width: 767px) {
+            .section {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
 
-  .fade-item {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
+            .fade-item {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
 
-  .fade-item.delay-1,
-  .fade-item.delay-2,
-  .fade-item.delay-3,
-  .fade-item.delay-4 {
-    transition-delay: 0s !important;
-  }
+            .fade-item.delay-1,
+            .fade-item.delay-2,
+            .fade-item.delay-3,
+            .fade-item.delay-4 {
+                transition-delay: 0s !important;
+            }
 
-  /* Также ускоряем появление загружаемых блоков */
-  #aboutContent .about-dynamic-grid,
-  #aboutContent .about-important,
-  #featuresContent .about-feature-card,
-  #reviewsContent .review-card,
-  #rulesContent .rules-block,
-  #residentsContent .residents-world,
-  #residentsContent .residents-extra-block,
-  #registrationContent .reg-block {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
+            #aboutContent .about-dynamic-grid,
+            #aboutContent .about-important,
+            #featuresContent .about-feature-card,
+            #reviewsContent .review-card,
+            #rulesContent .rules-block,
+            #residentsContent .residents-world,
+            #residentsContent .residents-extra-block,
+            #registrationContent .reg-block {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
@@ -1647,11 +1700,11 @@
             <div class="nav-menu" id="navMenu">
                 <a href="#hero" class="active">Главная</a>
                 <a href="#about">О пансионате</a>
-                <a href="#rest">Персонал</a>
+                <a href="#rest">Админы</a>
                 <a href="#reviews">Отзывы</a>
                 <a href="#rules">Правила</a>
-                <a href="#residents">Жильцы</a>
-                <a href="#registration">Регистрация</a>
+                <a href="#residents">Участники</a>
+                <a href="#registration">Анкета</a>
                 <a href="#contacts">Контакты</a>
             </div>
         </div>
@@ -1678,7 +1731,7 @@
                     </h1>
                     <p class="subtitle">
                         <span class="changing-word" id="changingWord">Уютный</span>
-                        отдых в лесах Зябликового округа
+                        флуд и ролевая по всем фд
                     </p>
                 </div>
 
@@ -1713,7 +1766,7 @@
         <div class="container">
             <div class="text-center fade-item">
                 <h2 class="section-title">О <span class="accent">пансионате</span></h2>
-                <p class="section-subtitle">Прекрасном месте для отдыха</p>
+                <p class="section-subtitle">Немного лора и деталей</p>
             </div>
 
             <div id="aboutContent" class="fade-item delay-1">
@@ -1739,13 +1792,13 @@
     <section class="section" id="rest" style="background: var(--gray-bg);">
         <div class="container">
             <div class="text-center fade-item">
-                <h2 class="section-title">Наш <span class="accent">персонал</span></h2>
-                <p class="section-subtitle">Забота и профессионализм в каждой детали</p>
+                <h2 class="section-title">Наш <span class="accent">Админ-состав</span></h2>
+                <p class="section-subtitle">Мы с радостью поможем с любой проблемой</p>
             </div>
 
             <div class="staff-grid">
                 <div class="staff-list fade-item delay-1">
-                    <h3>Команда пансионата</h3>
+                    <h3>Администрация:</h3>
                     <ul id="staffList">
                         <!-- Список будет заполнен динамически -->
                         <li style="text-align:center; color:var(--gray-text); padding:16px;">Загрузка...</li>
@@ -1753,7 +1806,7 @@
                 </div>
 
                 <div class="staff-description fade-item delay-2">
-                    <h3>О сотруднике</h3>
+                    <h3>О админе</h3>
                     <div class="staff-description-box glass" id="staffDescription">
                         <div class="staff-description-content default-text active" id="defaultText">
                             <i class="fas fa-users"></i>
@@ -1777,8 +1830,8 @@
     <section class="section" id="reviews">
         <div class="container">
             <div class="text-center fade-item">
-                <h2 class="section-title">Отзывы <span class="accent">гостей</span></h2>
-                <p class="section-subtitle">Что говорят о нас те, кто уже отдохнул</p>
+                <h2 class="section-title">Отзывы <span class="accent">участников</span></h2>
+                <p class="section-subtitle">Немного мнения наших участников о проекте</p>
             </div>
             <div id="reviewsContent" class="fade-item delay-1">
                 <div class="loading-placeholder">
@@ -1795,8 +1848,8 @@
     <section class="section" id="rules" style="background: var(--gray-bg);">
         <div class="container">
             <div class="text-center fade-item">
-                <h2 class="section-title">Правила <span class="accent">пансионата</span></h2>
-                <p class="section-subtitle">Ознакомьтесь с правилами проживания</p>
+                <h2 class="section-title">Правила <span class="accent">флуда и ролевой</span></h2>
+                <p class="section-subtitle">Ознакомьтесь с правилами и нормой</p>
             </div>
             <div id="rulesContent" class="fade-item delay-1">
                 <div class="loading-placeholder">
@@ -1813,8 +1866,8 @@
     <section class="section" id="residents">
         <div class="container">
             <div class="text-center fade-item">
-                <h2 class="section-title">Жильцы <span class="accent">пансионата</span></h2>
-                <p class="section-subtitle">Список текущих постояльцев</p>
+                <h2 class="section-title">Занятые <span class="accent">роли</span></h2>
+                <p class="section-subtitle">Список текущих участников</p>
             </div>
             <div id="residentsContent" class="fade-item delay-1">
                 <div class="loading-placeholder">
@@ -1831,7 +1884,7 @@
     <section class="section" id="registration" style="background: var(--gray-bg);">
         <div class="container">
             <div class="text-center fade-item">
-                <h2 class="section-title">Регистрация</h2>
+                <h2 class="section-title">Про анкету</h2>
                 <p class="section-subtitle">Шаблон и нюансы анкеты</p>
             </div>
             <div id="registrationContent" class="fade-item delay-1">
@@ -2040,7 +2093,7 @@
             // 8. ДИНАМИЧЕСКАЯ СМЕНА СЛОВА
             // ------------------------------------------------------------
             const wordElement = document.getElementById('changingWord');
-            const words = ['Уютный', 'Родной', 'Простой', 'Домашний'];
+            const words = ['Уютные', 'Родные', 'Простые', 'Домашние'];
             let currentIndex = 0;
 
             function changeWord() {
@@ -2223,7 +2276,7 @@
                 }
             }
 
-            // --- Загрузка отзывов (с раскрытием) ---
+            // --- Загрузка отзывов (с раскрытием и кнопкой "читать полностью") ---
             async function loadReviews() {
                 try {
                     const response = await fetch(BASE_URL);
@@ -2293,12 +2346,15 @@
                         const score = cells[scoreIdx].textContent.trim() || '—';
                         const text = cells[textIdx].textContent.trim() || 'Без отзыва';
 
-                        // Добавляем класс для скрытия, если это не первые 4
+                        // Определяем, скрыта ли карточка изначально (первые 4 показываем)
                         const hiddenClass = index >= 4 ? ' hidden-review' : '';
+                        const hiddenAttr = index >= 4 ? 'true' : 'false';
+
                         reviewsHtml += `
-                            <div class="review-card glass${hiddenClass}" data-index="${index}">
+                            <div class="review-card glass${hiddenClass}" data-index="${index}" data-hidden="${hiddenAttr}">
                                 <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                                <blockquote>«${text}»</blockquote>
+                                <blockquote class="review-text">«${text}»</blockquote>
+                                <button class="read-more-btn" data-action="toggle-text">Читать полностью</button>
                                 <div class="author">${who}</div>
                                 <div class="date">${score}/10</div>
                             </div>
@@ -2306,26 +2362,42 @@
                     });
                     reviewsHtml += '</div>';
 
-                    // Если отзывов больше 4, добавляем кнопку
-                    if (rows.length > 4) {
+                    // Если отзывов больше 4, добавляем кнопку показать все
+                    const hiddenCount = rows.length > 4 ? rows.length - 4 : 0;
+                    if (hiddenCount > 0) {
                         reviewsHtml += `
-                            <button class="reviews-toggle" id="reviewsToggle">Показать все (${rows.length - 4})</button>
+                            <button class="reviews-toggle" id="reviewsToggle">Показать все (${hiddenCount})</button>
                         `;
                     }
 
                     reviewsContainer.innerHTML = reviewsHtml;
 
-                    // Добавляем обработчик для кнопки
+                    // --- Обработчик для кнопок "читать полностью" (делегирование) ---
+                    reviewsContainer.addEventListener('click', function(e) {
+                        const btn = e.target.closest('.read-more-btn');
+                        if (btn) {
+                            const card = btn.closest('.review-card');
+                            if (!card) return;
+                            const blockquote = card.querySelector('blockquote');
+                            if (!blockquote) return;
+                            blockquote.classList.toggle('expanded');
+                            btn.textContent = blockquote.classList.contains('expanded') ? 'Скрыть' : 'Читать полностью';
+                        }
+                    });
+
+                    // --- Обработчик для кнопки "Показать все / Скрыть" ---
                     const toggleBtn = document.getElementById('reviewsToggle');
                     if (toggleBtn) {
                         let expanded = false;
                         toggleBtn.addEventListener('click', function() {
-                            const hiddenCards = reviewsContainer.querySelectorAll('.review-card.hidden-review');
+                            const hiddenCards = reviewsContainer.querySelectorAll('.review-card[data-hidden="true"]');
                             if (expanded) {
+                                // Скрываем все, которые были скрыты изначально
                                 hiddenCards.forEach(card => card.classList.add('hidden-review'));
                                 this.textContent = `Показать все (${hiddenCards.length})`;
                                 expanded = false;
                             } else {
+                                // Показываем все
                                 hiddenCards.forEach(card => card.classList.remove('hidden-review'));
                                 this.textContent = 'Скрыть';
                                 expanded = true;
@@ -2339,7 +2411,7 @@
                 }
             }
 
-            // --- Загрузка правил ---
+            // --- Загрузка правил (с обрезкой и раскрытием) ---
             async function loadRules() {
                 try {
                     const response = await fetch(BASE_URL);
@@ -2380,10 +2452,33 @@
 
                     let gridHtml = '<div class="rules-grid">';
                     blocks.forEach(block => {
-                        gridHtml += `<div class="rules-block"><h3>${block.title}</h3>${block.html}</div>`;
+                        // Оборачиваем содержимое в контейнер с классом rules-content
+                        const wrappedContent = `<div class="rules-content">${block.html}</div>`;
+                        const readMoreBtn = `<button class="read-more-btn" data-action="toggle-rules">Читать полностью</button>`;
+                        gridHtml += `
+                            <div class="rules-block">
+                                <h3>${block.title}</h3>
+                                ${wrappedContent}
+                                ${readMoreBtn}
+                            </div>
+                        `;
                     });
                     gridHtml += '</div>';
                     rulesContainer.innerHTML = gridHtml;
+
+                    // Обработчик для кнопок "читать полностью" в правилах
+                    rulesContainer.addEventListener('click', function(e) {
+                        const btn = e.target.closest('.read-more-btn');
+                        if (btn && btn.dataset.action === 'toggle-rules') {
+                            const block = btn.closest('.rules-block');
+                            if (!block) return;
+                            const content = block.querySelector('.rules-content');
+                            if (!content) return;
+                            content.classList.toggle('expanded');
+                            btn.textContent = content.classList.contains('expanded') ? 'Скрыть' : 'Читать полностью';
+                        }
+                    });
+
                 } catch (error) {
                     rulesContainer.innerHTML =
                         `<div class="error-placeholder"><i class="fas fa-exclamation-triangle"></i>Не удалось загрузить правила: ${error.message}</div>`;
