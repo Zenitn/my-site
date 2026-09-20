@@ -35,6 +35,7 @@
             --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --font-heading: 'Comfortaa', cursive;
             --font-body: 'Roboto', sans-serif;
+            --sidebar-width: 280px;
         }
 
         /* ============================================================
@@ -165,36 +166,145 @@
         }
 
         /* ============================================================
-                   НАВИГАЦИЯ (фиксированная, матовое стекло)
+                   НАВИГАЦИЯ (фиксированная сбоку)
                    ============================================================ */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: var(--sidebar-width);
+            height: 100vh;
+            height: 100dvh;
             z-index: 1000;
-            padding: 16px 0;
-            background: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px) saturate(180%);
             -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border-bottom: none;
-            transition: box-shadow 0.3s ease;
-        }
-        .navbar.scrolled {
-            box-shadow: 0 4px 40px rgba(30, 144, 255, 0.06);
+            border-right: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 24px 16px;
+            overflow-y: auto;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
         }
 
-        /* Прогресс-бар чтения (горизонтальный) под навигацией */
+        .navbar .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            padding: 0;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1a2634;
+            letter-spacing: -0.3px;
+            margin-bottom: 32px;
+            width: 100%;
+        }
+        .nav-logo img {
+            height: 36px;
+            width: auto;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .nav-logo-text {
+            white-space: normal;
+            max-width: 100%;
+            font-size: 0.95rem;
+            line-height: 1.3;
+        }
+        .nav-logo-text span {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+            gap: 6px;
+        }
+        .nav-menu a {
+            font-size: 0.98rem;
+            font-weight: 500;
+            padding: 12px 18px;
+            border-radius: 12px;
+            color: #3d4a5a;
+            transition: all 0.2s ease;
+            letter-spacing: 0.2px;
+            position: relative;
+            text-align: left;
+        }
+        .nav-menu a::after {
+            display: none;
+        }
+        .nav-menu a:hover {
+            color: var(--primary);
+            background: rgba(30, 144, 255, 0.08);
+            transform: translateX(4px);
+        }
+        .nav-menu a.active {
+            color: var(--white);
+            background: var(--primary);
+            box-shadow: 0 4px 12px rgba(30, 144, 255, 0.25);
+        }
+
+        /* Гамбургер для мобильных */
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 1100;
+            font-size: 1.8rem;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            align-items: center;
+            justify-content: center;
+            color: #1a2634;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+        .hamburger:hover {
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        /* Основной контент с отступом под сайдбар */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Прогресс-бар чтения */
         #progress-container {
             position: fixed;
-            top: 72px;
-            left: 0;
-            width: 100%;
-            height: 4px;
+            top: 0;
+            left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            height: 3px;
             background: rgba(200, 200, 200, 0.3);
-            z-index: 999;
+            z-index: 1001;
             overflow: hidden;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+            transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         #progress-bar {
             width: 0%;
@@ -204,113 +314,15 @@
             border-radius: 0 2px 2px 0;
         }
 
-        @media (max-width: 767px) {
-            #progress-container {
-                top: 64px;
-            }
-        }
-
-        .navbar .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #1a2634;
-            letter-spacing: -0.3px;
-            flex-shrink: 0;
-        }
-        .nav-logo img {
-            height: 40px;
-            width: auto;
-            border-radius: 8px;
-            flex-shrink: 0;
-        }
-        .nav-logo-text {
-            flex-shrink: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 220px;
-        }
-        .nav-logo-text span {
-            color: var(--primary);
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
-        .nav-menu a {
-            font-size: 0.92rem;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 30px;
-            color: #3d4a5a;
-            transition: all 0.3s ease;
-            letter-spacing: 0.2px;
-            position: relative;
-        }
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-        .nav-menu a:hover::after {
-            width: 60%;
-        }
-        .nav-menu a:hover {
-            color: var(--primary);
-            background: rgba(30, 144, 255, 0.08);
-        }
-        .nav-menu a.active {
-            color: var(--white);
-            background: var(--primary);
-            box-shadow: 0 4px 16px rgba(30, 144, 255, 0.25);
-        }
-        .nav-menu a.active::after {
-            display: none;
-        }
-
-        .hamburger {
-            display: none;
-            font-size: 1.6rem;
-            color: #1a2634;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 4px 8px;
-            transition: color 0.3s ease;
-            flex-shrink: 0;
-        }
-        .hamburger:hover {
-            color: var(--primary);
-        }
-
         /* ============================================================
-                   HERO (Главная) — две колонки
+                   HERO (Главная)
                    ============================================================ */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
-            padding: 120px 0 80px;
+            padding: 80px 0 60px;
             background-color: #f8fcff;
             overflow: hidden;
         }
@@ -921,6 +933,233 @@
         }
 
         /* ============================================================
+                   СОЮЗЫ И ВЗ (динамический контент) — СТИЛЬНЫЕ КАРТОЧКИ
+                   ============================================================ */
+        .unions-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+        }
+
+        .unions-block {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            padding: 26px 30px 22px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        .unions-block:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .unions-block h3 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #1a2634;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .unions-block h3 i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .unions-block p {
+            font-size: 1rem;
+            color: #2d3748;
+            line-height: 1.75;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+        .unions-block p:last-child {
+            margin-bottom: 0;
+        }
+        .unions-block ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 14px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .unions-block ul li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 0.98rem;
+            color: #2d3748;
+            line-height: 1.65;
+            font-weight: 300;
+        }
+        .unions-block ul li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 3px;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+        .unions-block ul li p {
+            margin-bottom: 0;
+        }
+        .unions-block a {
+            color: var(--primary);
+            font-weight: 500;
+            border-bottom: 1px dashed var(--primary-light);
+            transition: border-color 0.3s ease;
+        }
+        .unions-block a:hover {
+            border-bottom-color: var(--primary);
+        }
+        .unions-block hr {
+            border: none;
+            height: 1px;
+            background: rgba(30, 144, 255, 0.15);
+            margin: 16px 0;
+        }
+
+        /* === Список союзников (карточки) === */
+        .allies-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 4px;
+        }
+
+        .ally-card {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 18px 20px 16px;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(30, 144, 255, 0.12);
+            border-radius: var(--radius);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ally-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            transform: scaleY(0);
+            transform-origin: center;
+            transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .ally-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .ally-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .ally-name {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.08rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.35;
+            word-break: break-word;
+        }
+
+        .ally-name i {
+            font-size: 0.78rem;
+            opacity: 0.5;
+            flex-shrink: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .ally-card:hover .ally-name i {
+            opacity: 1;
+            transform: translate(2px, -2px);
+        }
+
+        .ally-extra {
+            font-size: 0.92rem;
+            color: #4a5568;
+            font-weight: 300;
+            line-height: 1.6;
+            padding-top: 4px;
+            border-top: 1px dashed rgba(30, 144, 255, 0.15);
+            margin-top: 2px;
+        }
+
+        .ally-extra:empty {
+            display: none;
+        }
+
+        .ally-extra p {
+            margin: 0;
+        }
+
+        /* Таблицы внутри динамического контента (для обратной совместимости) */
+        .content-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(30, 144, 255, 0.12);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 420px;
+        }
+        .content-table thead th {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #1a2634;
+            text-align: left;
+            padding: 12px 16px;
+            background: var(--primary-light);
+            border-bottom: 1px solid rgba(30, 144, 255, 0.18);
+            white-space: nowrap;
+        }
+        .content-table tbody td {
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            color: #2d3748;
+            font-weight: 300;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            vertical-align: top;
+        }
+        .content-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .content-table tbody tr:hover td {
+            background: rgba(30, 144, 255, 0.05);
+        }
+        .content-table a {
+            color: var(--primary);
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        /* ============================================================
                    ЖИЛЬЦЫ (компактные колонки)
                    ============================================================ */
         .residents-grid {
@@ -1356,51 +1595,54 @@
             .reviews-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            /* Мобильная навигация — выезжающий сайдбар */
+            .navbar {
+                transform: translateX(-100%);
+                width: var(--sidebar-width);
+                box-shadow: none;
+                /* Отступ сверху, чтобы логотип и меню не перекрывались кнопкой-гамбургером */
+                padding-top: 80px;
+                padding-bottom: 32px;
+                height: 100vh;
+                height: 100dvh;
+            }
+            .navbar.open {
+                transform: translateX(0);
+                box-shadow: 8px 0 32px rgba(0, 0, 0, 0.15);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            #progress-container {
+                left: 0;
+                width: 100%;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-logo {
+                margin-bottom: 24px;
+            }
         }
 
         @media (max-width: 767px) {
-            .hamburger {
-                display: block;
-            }
             .nav-menu {
-                position: fixed;
-                top: 72px;
-                left: 0;
-                width: 100%;
-                background: rgba(255, 255, 255, 0.92);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                flex-direction: column;
-                padding: 20px 24px 32px;
                 gap: 4px;
-                box-shadow: 0 20px 48px rgba(0, 0, 0, 0.06);
-                transform: translateY(-120%);
-                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-                border-radius: 0 0 var(--radius) var(--radius);
-            }
-            .nav-menu.open {
-                transform: translateY(0);
             }
             .nav-menu a {
-                font-size: 1rem;
-                padding: 12px 16px;
-                width: 100%;
-                text-align: center;
-                border-radius: 10px;
-            }
-            .nav-menu a::after {
-                display: none;
+                font-size: 0.95rem;
+                padding: 10px 14px;
             }
 
             .nav-logo {
                 font-size: 1rem;
+                margin-bottom: 18px;
             }
             .nav-logo img {
-                height: 32px;
+                height: 30px;
             }
             .nav-logo-text {
-                max-width: 140px;
                 font-size: 0.85rem;
             }
 
@@ -1549,6 +1791,27 @@
                 width: 100%;
                 text-align: center;
             }
+
+            /* Союзы на мобильных */
+            .unions-block {
+                padding: 20px 18px 18px;
+            }
+            .unions-block h3 {
+                font-size: 1.08rem;
+            }
+            .unions-block ul li {
+                padding-left: 24px;
+                font-size: 0.94rem;
+            }
+            .allies-list {
+                grid-template-columns: 1fr;
+            }
+            .ally-card {
+                padding: 16px 16px 14px;
+            }
+            .ally-name {
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1566,7 +1829,14 @@
                 height: 24px;
             }
             .hamburger {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
+                width: 44px;
+                height: 44px;
+                top: 12px;
+                left: 12px;
+            }
+            .navbar {
+                padding-top: 72px;
             }
             .about-features {
                 grid-template-columns: 1fr 1fr;
@@ -1614,6 +1884,9 @@
             }
             .reviews-grid {
                 grid-template-columns: 1fr;
+            }
+            .unions-block {
+                padding: 16px 14px 14px;
             }
         }
 
@@ -1670,6 +1943,8 @@
             #featuresContent .about-feature-card,
             #reviewsContent .review-card,
             #rulesContent .rules-block,
+            #unionsContent .unions-block,
+            #unionsContent .ally-card,
             #residentsContent .residents-world,
             #residentsContent .residents-extra-block,
             #registrationContent .reg-block {
@@ -1684,7 +1959,7 @@
 <body>
 
     <!-- ============================================================
-    НАВИГАЦИЯ
+    БОКОВАЯ НАВИГАЦИЯ (ФИКСИРОВАННАЯ)
     ============================================================ -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Главная навигация">
         <div class="container">
@@ -1693,22 +1968,26 @@
                 <span class="nav-logo-text"><span>Пансионат</span> «Седые Воробушки»</span>
             </a>
 
-            <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
-
             <div class="nav-menu" id="navMenu">
                 <a href="#hero" class="active">Главная</a>
                 <a href="#about">О пансионате</a>
                 <a href="#rest">Админы</a>
                 <a href="#reviews">Отзывы</a>
                 <a href="#rules">Правила</a>
+                <a href="#unions">Союзы и ВЗ</a>
                 <a href="#residents">Участники</a>
                 <a href="#registration">Анкета</a>
                 <a href="#contacts">Контакты</a>
             </div>
         </div>
     </nav>
+
+    <!-- ============================================================
+    ГАМБУРГЕР (для мобильных)
+    ============================================================ -->
+    <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
 
     <!-- ============================================================
     ПРОГРЕСС-БАР ЧТЕНИЯ
@@ -1718,242 +1997,265 @@
     </div>
 
     <!-- ============================================================
-    HERO (Главная) — теперь две колонки
+    ОСНОВНОЙ КОНТЕНТ (с отступом под сайдбар)
     ============================================================ -->
-    <section class="hero" id="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <!-- Левая колонка: приветствие -->
-                <div class="hero-content">
-                    <h1>
-                        Добро пожаловать в<br />
-                        <span class="highlight">«Седые Воробушки»</span>
-                    </h1>
-                    <p class="subtitle">
-                        <span class="changing-word" id="changingWord">Уютный</span>
-                        флуд и ролевая по всем фд
-                    </p>
-                </div>
+    <div class="main-content">
 
-                <!-- Правая колонка: инструкция по вступлению -->
-                <div class="hero-instruction glass">
-                    <h3><i class="fas fa-clipboard-list"></i> Для вступления</h3>
-                    <ul>
-                        <li>Ознакомились с правилами <a href="#rules">Флуда</a> и <a href="#rules">Ролевой</a>.</li>
-                        <li>Ознакомились с сюжетом в <a href="https://boarding-house-gs.vercel.app/vselennaya-pansionata/kratko-o-syuzhete/" target="_blank" rel="noopener">Краткой</a> или <a href="https://boarding-house-gs.vercel.app/" target="_blank" rel="noopener">Полной</a> форме.</li>
-                        <li>Выбрали роль, удостоверились, что она свободна (<a href="#residents">список жильцов</a>).</li>
-                    </ul>
-                    <p style="margin-bottom: 14px; font-size:0.95rem; color:var(--gray-text); font-weight:300;">
-                        После выполнения этих пунктов вы можете со спокойной душой писать владельцу о вступлении.
-                    </p>
-                    <a href="https://t.me/Zenithca" target="_blank" rel="noopener" class="contact-link">
-                        <i class="fab fa-telegram-plane"></i> Написать владельцу
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    РАЗДЕЛИТЕЛЬ
-    ============================================================ -->
-    <hr class="section-divider-custom" />
-
-    <!-- ============================================================
-    О ПАНСИОНАТЕ (динамический контент)
-    ============================================================ -->
-    <section class="section" id="about">
-        <div class="container">
-            <div class="text-center fade-item">
-                <h2 class="section-title">О <span class="accent">пансионате</span></h2>
-                <p class="section-subtitle">Немного лора и деталей</p>
-            </div>
-
-            <div id="aboutContent" class="fade-item delay-1">
-                <div class="loading-placeholder">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    Загрузка информации о пансионате...
-                </div>
-            </div>
-
-            <!-- Карточки-фичи (динамически загружаются из "Ячейки") -->
-            <div id="featuresContent" class="about-features fade-item delay-3">
-                <div class="loading-placeholder" style="grid-column:1/-1; padding:20px 0;">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    Загрузка возможностей...
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    ПЕРСОНАЛ (динамический)
-    ============================================================ -->
-    <section class="section" id="rest" style="background: var(--gray-bg);">
-        <div class="container">
-            <div class="text-center fade-item">
-                <h2 class="section-title">Наш <span class="accent">Админ-состав</span></h2>
-                <p class="section-subtitle">Мы с радостью поможем с любой проблемой</p>
-            </div>
-
-            <div class="staff-grid">
-                <div class="staff-list fade-item delay-1">
-                    <h3>Администрация:</h3>
-                    <ul id="staffList">
-                        <!-- Список будет заполнен динамически -->
-                        <li style="text-align:center; color:var(--gray-text); padding:16px;">Загрузка...</li>
-                    </ul>
-                </div>
-
-                <div class="staff-description fade-item delay-2">
-                    <h3>О админе</h3>
-                    <div class="staff-description-box glass" id="staffDescription">
-                        <div class="staff-description-content default-text active" id="defaultText">
-                            <i class="fas fa-users"></i>
-                            <p id="defaultTextContent">Загрузка информации...</p>
-                            <p class="hint">Наведите на имя, чтобы узнать подробнее.</p>
-                        </div>
-                        <div class="staff-description-content desc-content" id="descContent">
-                            <div class="staff-name" id="descName"></div>
-                            <div class="staff-role" id="descRole"></div>
-                            <div class="staff-text" id="descText"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    ОТЗЫВЫ (динамические, с раскрытием)
-    ============================================================ -->
-    <section class="section" id="reviews">
-        <div class="container">
-            <div class="text-center fade-item">
-                <h2 class="section-title">Отзывы <span class="accent">участников</span></h2>
-                <p class="section-subtitle">Немного мнения наших участников о проекте</p>
-            </div>
-            <div id="reviewsContent" class="fade-item delay-1">
-                <div class="loading-placeholder">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    Загрузка отзывов...
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    ПРАВИЛА (динамические, компактные)
-    ============================================================ -->
-    <section class="section" id="rules" style="background: var(--gray-bg);">
-        <div class="container">
-            <div class="text-center fade-item">
-                <h2 class="section-title">Правила <span class="accent">флуда и ролевой</span></h2>
-                <p class="section-subtitle">Ознакомьтесь с правилами и нормой</p>
-            </div>
-            <div id="rulesContent" class="fade-item delay-1">
-                <div class="loading-placeholder">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    Загрузка правил...
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    ЖИЛЬЦЫ (динамические, включая бронь и ожидания)
-    ============================================================ -->
-    <section class="section" id="residents">
-        <div class="container">
-            <div class="text-center fade-item">
-                <h2 class="section-title">Занятые <span class="accent">роли</span></h2>
-                <p class="section-subtitle">Список текущих участников</p>
-            </div>
-            <div id="residentsContent" class="fade-item delay-1">
-                <div class="loading-placeholder">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    Загрузка списка жильцов...
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    РЕГИСТРАЦИЯ — загружаемый контент (без формы)
-    ============================================================ -->
-    <section class="section" id="registration" style="background: var(--gray-bg);">
-        <div class="container">
-            <div class="text-center fade-item">
-                <h2 class="section-title">Про анкету</h2>
-                <p class="section-subtitle">Шаблон и нюансы анкеты</p>
-            </div>
-            <div id="registrationContent" class="fade-item delay-1">
-                <div class="loading-placeholder">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    Загрузка информации о регистрации...
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    КОНТАКТЫ
-    ============================================================ -->
-    <section class="section" id="contacts" style="background: var(--gray-bg);">
-        <div class="container">
-            <div class="text-center fade-item">
-                <h2 class="section-title">Контакты</h2>
-                <p class="section-subtitle">Мы всегда на связи</p>
-            </div>
-
-            <div class="contacts-grid">
-                <div class="contacts-info fade-item delay-1">
-                    <div class="item glass">
-                        <i class="fas fa-map-pin"></i>
-                        <span>Зябликовый округ, 7 км от города</span>
-                    </div>
-                    <div class="item glass">
-                        <i class="fas fa-phone-alt"></i>
-                        <a href="https://t.me/GS_Boarding_House/9" target="_blank" rel="noopener">https://t.me/GS_Boarding_House/9</a>
-                    </div>
-                    <div class="item glass">
-                        <i class="fas fa-envelope"></i>
-                        <a href="https://t.me/GS_Boarding_House" target="_blank" rel="noopener">Наша страничка</a>
-                    </div>
-                    <div class="item glass">
-                        <i class="fas fa-clock"></i>
-                        <span>Ежедневно...</span>
+        <!-- ============================================================
+        HERO (Главная) — две колонки
+        ============================================================ -->
+        <section class="hero" id="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <!-- Левая колонка: приветствие -->
+                    <div class="hero-content">
+                        <h1>
+                            Добро пожаловать в<br />
+                            <span class="highlight">«Седые Воробушки»</span>
+                        </h1>
+                        <p class="subtitle">
+                            <span class="changing-word" id="changingWord">Уютный</span>
+                            флуд и ролевая по всем фд
+                        </p>
                     </div>
 
-                    <div class="contacts-social">
-                        <a href="https://t.me/Zenithca" target="_blank" rel="noopener">
-                            <i class="fab fa-telegram-plane"></i> Написать для вступления
+                    <!-- Правая колонка: инструкция по вступлению -->
+                    <div class="hero-instruction glass">
+                        <h3><i class="fas fa-clipboard-list"></i>Если вы:</h3>
+                        <ul>
+                            <li>Ознакомились с правилами <a href="#rules">Флуда</a> и <a href="#rules">Ролевой</a>.</li>
+                            <li>Ознакомились с сюжетом в <a href="https://boarding-house-gs.vercel.app/vselennaya-pansionata/kratko-o-syuzhete/" target="_blank" rel="noopener">Краткой</a> или <a href="https://boarding-house-gs.vercel.app/" target="_blank" rel="noopener">Полной</a> форме.</li>
+                            <li>Выбрали роль, удостоверились, что она свободна (<a href="#residents">список жильцов</a>).</li>
+                            <li>Подписались на наш <a href="https://t.me/GS_Boarding_House">инфо канал</a>.</li>
+                        </ul>
+                        <p style="margin-bottom: 14px; font-size:0.95rem; color:var(--gray-text); font-weight:300;">
+                            Вы можете со спокойной душой писать владельцу о вступлении.
+                        </p>
+                        <a href="https://t.me/Zenithca" target="_blank" rel="noopener" class="contact-link">
+                            <i class="fab fa-telegram-plane"></i> Написать владельцу
                         </a>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="photo-placeholder glass fade-item delay-2">
-                    <i class="fa-solid fa-paperclip"></i>
-                    <span>Пишите нам для вступления</span>
-                    <span style="font-size:0.8rem; opacity:0.6;">Вам почти всегда ответят...</span>
+        <!-- ============================================================
+        РАЗДЕЛИТЕЛЬ
+        ============================================================ -->
+        <hr class="section-divider-custom" />
+
+        <!-- ============================================================
+        О ПАНСИОНАТЕ (динамический контент)
+        ============================================================ -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="text-center fade-item">
+                    <h2 class="section-title">О <span class="accent">пансионате</span></h2>
+                    <p class="section-subtitle">Немного лора и деталей</p>
+                </div>
+
+                <div id="aboutContent" class="fade-item delay-1">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        Загрузка информации о пансионате...
+                    </div>
+                </div>
+
+                <!-- Карточки-фичи (динамически загружаются из "Ячейки") -->
+                <div id="featuresContent" class="about-features fade-item delay-3">
+                    <div class="loading-placeholder" style="grid-column:1/-1; padding:20px 0;">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        Загрузка возможностей...
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ============================================================
-    ФУТЕР
-    ============================================================ -->
-    <footer class="footer">
-        <div class="container">
-            <div class="copy">
-                &copy; 2026 <strong>Пансионат «Седые Воробушки»</strong>
+        <!-- ============================================================
+        ПЕРСОНАЛ (динамический)
+        ============================================================ -->
+        <section class="section" id="rest" style="background: var(--gray-bg);">
+            <div class="container">
+                <div class="text-center fade-item">
+                    <h2 class="section-title">Наш <span class="accent">Админ-состав</span></h2>
+                    <p class="section-subtitle">Мы с радостью поможем с любой проблемой</p>
+                </div>
+
+                <div class="staff-grid">
+                    <div class="staff-list fade-item delay-1">
+                        <h3>Администрация:</h3>
+                        <ul id="staffList">
+                            <!-- Список будет заполнен динамически -->
+                            <li style="text-align:center; color:var(--gray-text); padding:16px;">Загрузка...</li>
+                        </ul>
+                    </div>
+
+                    <div class="staff-description fade-item delay-2">
+                        <h3>О админе</h3>
+                        <div class="staff-description-box glass" id="staffDescription">
+                            <div class="staff-description-content default-text active" id="defaultText">
+                                <i class="fas fa-users"></i>
+                                <p id="defaultTextContent">Загрузка информации...</p>
+                                <p class="hint">Наведите на имя, чтобы узнать подробнее.</p>
+                            </div>
+                            <div class="staff-description-content desc-content" id="descContent">
+                                <div class="staff-name" id="descName"></div>
+                                <div class="staff-role" id="descRole"></div>
+                                <div class="staff-text" id="descText"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="footer-social">
-                <a href="https://t.me/GS_Boarding_House" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        </section>
+
+        <!-- ============================================================
+        ОТЗЫВЫ (динамические, с раскрытием)
+        ============================================================ -->
+        <section class="section" id="reviews">
+            <div class="container">
+                <div class="text-center fade-item">
+                    <h2 class="section-title">Отзывы <span class="accent">участников</span></h2>
+                    <p class="section-subtitle">Немного мнения наших участников о проекте</p>
+                </div>
+                <div id="reviewsContent" class="fade-item delay-1">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        Загрузка отзывов...
+                    </div>
+                </div>
             </div>
-        </div>
-    </footer>
+        </section>
+
+        <!-- ============================================================
+        ПРАВИЛА (динамические, компактные)
+        ============================================================ -->
+        <section class="section" id="rules" style="background: var(--gray-bg);">
+            <div class="container">
+                <div class="text-center fade-item">
+                    <h2 class="section-title">Правила <span class="accent">флуда и ролевой</span></h2>
+                    <p class="section-subtitle">Ознакомьтесь с правилами и нормой</p>
+                </div>
+                <div id="rulesContent" class="fade-item delay-1">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        Загрузка правил...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        СОЮЗЫ И ВЗ (динамический контент) — сразу после правил
+        ============================================================ -->
+        <section class="section" id="unions">
+            <div class="container">
+                <div class="text-center fade-item">
+                    <h2 class="section-title">Союзы и <span class="accent">ВЗ</span></h2>
+                    <p class="section-subtitle">Условия заключения союзов и взаимного пиара</p>
+                </div>
+                <div id="unionsContent" class="fade-item delay-1">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        Загрузка информации о союзах...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        ЖИЛЬЦЫ (динамические, включая бронь и ожидания)
+        ============================================================ -->
+        <section class="section" id="residents">
+            <div class="container">
+                <div class="text-center fade-item">
+                    <h2 class="section-title">Занятые <span class="accent">роли</span></h2>
+                    <p class="section-subtitle">Список текущих участников</p>
+                </div>
+                <div id="residentsContent" class="fade-item delay-1">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        Загрузка списка жильцов...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        РЕГИСТРАЦИЯ — загружаемый контент (без формы)
+        ============================================================ -->
+        <section class="section" id="registration" style="background: var(--gray-bg);">
+            <div class="container">
+                <div class="text-center fade-item">
+                    <h2 class="section-title">Про анкету</h2>
+                    <p class="section-subtitle">Шаблон и нюансы анкеты</p>
+                </div>
+                <div id="registrationContent" class="fade-item delay-1">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        Загрузка информации о регистрации...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        КОНТАКТЫ
+        ============================================================ -->
+        <section class="section" id="contacts" style="background: var(--gray-bg);">
+            <div class="container">
+                <div class="text-center fade-item">
+                    <h2 class="section-title">Контакты</h2>
+                    <p class="section-subtitle">Мы всегда на связи</p>
+                </div>
+
+                <div class="contacts-grid">
+                    <div class="contacts-info fade-item delay-1">
+                        <div class="item glass">
+                            <i class="fas fa-map-pin"></i>
+                            <span>Ролевая по всем фд и oc-ам</span>
+                        </div>
+                    
+                        <div class="item glass">
+                            <i class="fas fa-envelope"></i>
+                            <a href="https://t.me/GS_Boarding_House" target="_blank" rel="noopener">Наша страничка</a>
+                        </div>
+                        <div class="item glass">
+                            <i class="fas fa-clock"></i>
+                            <span>Ежедневно...</span>
+                        </div>
+
+                        <div class="contacts-social">
+                            <a href="https://t.me/Zenithca" target="_blank" rel="noopener">
+                                <i class="fab fa-telegram-plane"></i> Написать для вступления
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="photo-placeholder glass fade-item delay-2">
+                        <i class="fa-solid fa-paperclip"></i>
+                        <span>Пишите нам для вступления</span>
+                        <span style="font-size:0.8rem; opacity:0.6;">Вам почти всегда ответят...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        ФУТЕР
+        ============================================================ -->
+        <footer class="footer">
+            <div class="container">
+                <div class="copy">
+                    &copy; 2026 <strong>Пансионат «Седые Воробушки»</strong>
+                </div>
+                <div class="footer-social">
+                    <a href="https://t.me/GS_Boarding_House" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                </div>
+            </div>
+        </footer>
+
+    </div> <!-- /main-content -->
 
     <!-- ============================================================
     КНОПКА "НАВЕРХ"
@@ -1970,21 +2272,22 @@
             'use strict';
 
             // ------------------------------------------------------------
-            // 1. МОБИЛЬНОЕ МЕНЮ
+            // 1. МОБИЛЬНОЕ МЕНЮ (боковое)
             // ------------------------------------------------------------
             const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('navMenu');
+            const navbar = document.getElementById('navbar');
 
             hamburger.addEventListener('click', function() {
-                const isOpen = navMenu.classList.toggle('open');
+                const isOpen = navbar.classList.toggle('open');
                 this.setAttribute('aria-expanded', isOpen);
                 const icon = this.querySelector('i');
                 icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
             });
 
-            navMenu.querySelectorAll('a').forEach(function(link) {
+            // Закрываем меню при клике по ссылке
+            navbar.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function() {
-                    navMenu.classList.remove('open');
+                    navbar.classList.remove('open');
                     hamburger.setAttribute('aria-expanded', 'false');
                     hamburger.querySelector('i').className = 'fas fa-bars';
                 });
@@ -1994,7 +2297,7 @@
             // 2. АКТИВНЫЙ ПУНКТ МЕНЮ ПРИ СКРОЛЛЕ
             // ------------------------------------------------------------
             const sections = document.querySelectorAll('section[id]');
-            const navLinks = navMenu.querySelectorAll('a');
+            const navLinks = navbar.querySelectorAll('a');
 
             function updateActiveLink() {
                 let current = '';
@@ -2018,14 +2321,6 @@
 
             window.addEventListener('scroll', updateActiveLink, { passive: true });
             window.addEventListener('load', updateActiveLink);
-
-            // ------------------------------------------------------------
-            // 3. ТЕНЬ НА НАВИГАЦИИ
-            // ------------------------------------------------------------
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', function() {
-                navbar.classList.toggle('scrolled', window.scrollY > 20);
-            }, { passive: true });
 
             // ------------------------------------------------------------
             // 4. INTERSECTION OBSERVER
@@ -2054,7 +2349,7 @@
                     if (targetEl) {
                         e.preventDefault();
                         window.scrollTo({
-                            top: targetEl.offsetTop - 72,
+                            top: targetEl.offsetTop - 20,
                             behavior: 'smooth'
                         });
                     }
@@ -2118,6 +2413,7 @@
             const featuresContainer = document.getElementById('featuresContent');
             const reviewsContainer = document.getElementById('reviewsContent');
             const rulesContainer = document.getElementById('rulesContent');
+            const unionsContainer = document.getElementById('unionsContent');
             const residentsContainer = document.getElementById('residentsContent');
             const registrationContainer = document.getElementById('registrationContent');
             const staffList = document.getElementById('staffList');
@@ -2485,6 +2781,216 @@
                 }
             }
 
+            // --- Загрузка союзов и ВЗ ---
+            // Формат: карточки «Название (ссылка) + Дополнительно»
+            async function loadUnions() {
+                try {
+                    const response = await fetch(BASE_URL);
+                    if (!response.ok) throw new Error('Ошибка загрузки союзов');
+                    const html = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    const unionsHeading = doc.getElementById('soyuzy-i-vz');
+                    if (!unionsHeading) {
+                        unionsContainer.innerHTML =
+                            '<div class="error-placeholder"><i class="fas fa-exclamation-triangle"></i>Раздел "Союзы и ВЗ" не найден.</div>';
+                        return;
+                    }
+
+                    // Собираем все узлы до следующего H1
+                    const nodes = [];
+                    let node = unionsHeading.nextElementSibling;
+                    while (node && node.tagName !== 'H1') {
+                        nodes.push(node);
+                        node = node.nextElementSibling;
+                    }
+
+                    if (nodes.length === 0) {
+                        unionsContainer.innerHTML =
+                            '<div class="error-placeholder"><i class="fas fa-exclamation-triangle"></i>Содержимое раздела "Союзы и ВЗ" пусто.</div>';
+                        return;
+                    }
+
+                    // --- 1. Парсим таблицу союзников ---
+                    let allies = [];
+                    let introRows = [];
+
+                    nodes.forEach(function(el) {
+                        let table = null;
+                        if (el.tagName === 'TABLE') {
+                            table = el;
+                        } else if (el.tagName === 'DIV' && el.classList.contains('table-wrapper')) {
+                            table = el.querySelector('table');
+                        }
+                        if (!table) return;
+
+                        const headers = table.querySelectorAll('thead th');
+                        let nameIdx = -1,
+                            linkIdx = -1,
+                            extraIdx = -1;
+                        headers.forEach(function(th, idx) {
+                            const t = th.textContent.trim().toLowerCase();
+                            if (t === 'с кем' || t === 'название' || t === 'союзник' || t === 'имя') {
+                                nameIdx = idx;
+                            } else if (t === 'ссылка' || t === 'url' || t === 'link') {
+                                linkIdx = idx;
+                            } else if (t === 'дополнительно' || t === 'доп. сведения' || t === 'инфо' || t === 'описание') {
+                                extraIdx = idx;
+                            }
+                        });
+                        if (nameIdx === -1) nameIdx = 0;
+                        // Если отдельного столбца "Дополнительно" нет — берём последний столбец как "дополнительно"
+                        if (extraIdx === -1 && headers.length >= 2) {
+                            // Ищем любой столбец, кроме name и link, для доп. сведений
+                            for (let i = headers.length - 1; i >= 0; i--) {
+                                if (i !== nameIdx && i !== linkIdx) {
+                                    extraIdx = i;
+                                    break;
+                                }
+                            }
+                        }
+
+                        table.querySelectorAll('tbody tr').forEach(function(row) {
+                            const cells = row.querySelectorAll('td');
+                            if (cells.length === 0) return;
+
+                            const nameCell = cells[nameIdx] || null;
+                            const linkCell = (linkIdx !== -1 && cells[linkIdx]) ? cells[linkIdx] : null;
+                            const extraCell = (extraIdx !== -1 && cells[extraIdx]) ? cells[extraIdx] : null;
+
+                            const nameText = nameCell ? nameCell.textContent.trim() : '';
+                            const nameHtml = nameCell ? nameCell.innerHTML.trim() : '';
+                            const linkText = linkCell ? linkCell.textContent.trim() : '';
+                            const linkHtml = linkCell ? linkCell.innerHTML.trim() : '';
+                            const extraText = extraCell ? extraCell.textContent.trim() : '';
+                            const extraHtml = extraCell ? extraCell.innerHTML.trim() : '';
+
+                            // Полностью пустая строка
+                            if (!nameText && !linkText && !extraText) return;
+
+                            // Определяем ссылку
+                            let href = '';
+                            const nameAnchor = nameCell ? nameCell.querySelector('a') : null;
+                            const linkAnchor = linkCell ? linkCell.querySelector('a') : null;
+                            if (nameAnchor && nameAnchor.getAttribute('href')) {
+                                href = nameAnchor.getAttribute('href');
+                            } else if (linkAnchor && linkAnchor.getAttribute('href')) {
+                                href = linkAnchor.getAttribute('href');
+                            } else if (linkHtml && /^https?:/i.test(linkText)) {
+                                href = linkText;
+                            }
+
+                            // Итоговое имя
+                            let finalName = nameText || linkText;
+                            // Доп. сведения: берём extraCell, а если его нет — берём linkCell
+                            let finalExtraHtml = extraHtml;
+                            if (!finalExtraHtml && linkCell && linkText && !/^https?:/i.test(linkText)) {
+                                finalExtraHtml = linkHtml;
+                            }
+
+                            if (href) {
+                                // Это союзник
+                                allies.push({
+                                    name: finalName || 'Союзник',
+                                    href: href,
+                                    extra: finalExtraHtml
+                                });
+                            } else if (nameText) {
+                                // Это описательный текст (условия)
+                                introRows.push(nameText);
+                            }
+                        });
+                    });
+
+                    // --- 2. Парсим остальной контент (UL, P, HR) ---
+                    let beforeHr = '';
+                    let afterHr = '';
+                    let hrPassed = false;
+
+                    nodes.forEach(function(el) {
+                        // Пропускаем таблицы — они уже обработаны
+                        if (el.tagName === 'TABLE') return;
+                        if (el.tagName === 'DIV' && el.classList.contains('table-wrapper')) return;
+
+                        if (el.tagName === 'HR') {
+                            hrPassed = true;
+                            return;
+                        }
+
+                        if (hrPassed) {
+                            afterHr += el.outerHTML;
+                        } else {
+                            beforeHr += el.outerHTML;
+                        }
+                    });
+
+                    // --- 3. Формируем вывод ---
+                    let output = '<div class="unions-wrapper">';
+
+                    // 3.1. Союзники (если есть)
+                    if (allies.length > 0) {
+                        output += '<div class="unions-block">';
+                        output += '<h3><i class="fas fa-handshake"></i>Наши союзники</h3>';
+                        output += '<div class="allies-list">';
+                        allies.forEach(function(ally) {
+                            const extraBlock = ally.extra
+                                ? `<div class="ally-extra">${ally.extra}</div>`
+                                : '';
+                            output += `
+                                <a href="${ally.href}" target="_blank" rel="noopener" class="ally-card">
+                                    <div class="ally-name">
+                                        ${ally.name}
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </div>
+                                    ${extraBlock}
+                                </a>
+                            `;
+                        });
+                        output += '</div>';
+                        output += '</div>';
+                    }
+
+                    // 3.2. Условия (intro rows + beforeHr)
+                    const hasConditions = introRows.length > 0 || beforeHr.trim();
+                    if (hasConditions) {
+                        output += '<div class="unions-block">';
+                        output += '<h3><i class="fas fa-file-signature"></i>Условия заключения союза</h3>';
+                        if (introRows.length > 0) {
+                            introRows.forEach(function(t) {
+                                output += `<p>${t}</p>`;
+                            });
+                        }
+                        if (beforeHr.trim()) {
+                            output += beforeHr;
+                        }
+                        output += '</div>';
+                    }
+
+                    // 3.3. ВЗ (после HR)
+                    if (afterHr.trim()) {
+                        output += '<div class="unions-block">';
+                        output += '<h3><i class="fas fa-bullhorn"></i>Взаимный пиар (ВЗ)</h3>';
+                        output += afterHr;
+                        output += '</div>';
+                    }
+
+                    output += '</div>';
+
+                    if (!allies.length && !hasConditions && !afterHr.trim()) {
+                        unionsContainer.innerHTML =
+                            '<div class="error-placeholder"><i class="fas fa-exclamation-triangle"></i>Не удалось разобрать содержимое раздела "Союзы и ВЗ".</div>';
+                        return;
+                    }
+
+                    unionsContainer.innerHTML = output;
+
+                } catch (error) {
+                    unionsContainer.innerHTML =
+                        `<div class="error-placeholder"><i class="fas fa-exclamation-triangle"></i>Не удалось загрузить раздел "Союзы и ВЗ": ${error.message}</div>`;
+                }
+            }
+
             // --- Загрузка жильцов ---
             async function loadResidents() {
                 try {
@@ -2648,7 +3154,7 @@
                 }
             }
 
-            // --- Загрузка регистрации ---
+            // --- Загрузка регистрации (с обменом "Характер" и "Биография") ---
             async function loadRegistration() {
                 try {
                     const response = await fetch(BASE_URL);
@@ -2677,9 +3183,13 @@
                         return;
                     }
 
-                    let formattedHtml = `<div class="registration-content">`;
+                    // --- Обмен "Характер" и "Биография" ---
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = contentHtml;
+
+                    swapCharacterAndBio(tempDiv);
+
+                    let formattedHtml = `<div class="registration-content">`;
                     const children = Array.from(tempDiv.children);
 
                     let currentTitle = '';
@@ -2712,7 +3222,7 @@
                     }
 
                     if (!formattedHtml.includes('reg-block')) {
-                        formattedHtml = `<div class="registration-content"><div class="reg-block">${contentHtml}</div></div>`;
+                        formattedHtml = `<div class="registration-content"><div class="reg-block">${tempDiv.innerHTML}</div></div>`;
                     } else {
                         formattedHtml += '</div>';
                     }
@@ -2722,6 +3232,46 @@
                     registrationContainer.innerHTML =
                         `<div class="error-placeholder"><i class="fas fa-exclamation-triangle"></i>Не удалось загрузить информацию о регистрации: ${error.message}</div>`;
                 }
+            }
+
+            // --- Вспомогательная функция: обмен полей "Характер" и "Биография" ---
+            function swapCharacterAndBio(container) {
+                // Ищем все элементы, чей текст начинается с "Характер" или "Биография"
+                const allEls = Array.from(container.querySelectorAll('*'));
+                let charEl = null;
+                let bioEl = null;
+
+                allEls.forEach(function(el) {
+                    const text = el.textContent.trim();
+                    const lower = text.toLowerCase();
+                    if (!charEl && /^характер\b/.test(lower)) {
+                        charEl = el;
+                    }
+                    if (!bioEl && /^биография\b/.test(lower)) {
+                        bioEl = el;
+                    }
+                });
+
+                // Если нашли — предпочитаем самые «мелкие» (глубокие) элементы
+                if (charEl && bioEl) {
+                    const charCandidates = allEls.filter(el => /^характер\b/.test(el.textContent.trim().toLowerCase()));
+                    const bioCandidates = allEls.filter(el => /^биография\b/.test(el.textContent.trim().toLowerCase()));
+                    if (charCandidates.length > 1) {
+                        charEl = charCandidates[charCandidates.length - 1];
+                    }
+                    if (bioCandidates.length > 1) {
+                        bioEl = bioCandidates[bioCandidates.length - 1];
+                    }
+                }
+
+                if (!charEl || !bioEl || charEl === bioEl) return;
+                if (charEl.parentNode !== bioEl.parentNode) return;
+
+                // Меняем местами через клонирование
+                const parent = charEl.parentNode;
+                const bioClone = bioEl.cloneNode(true);
+                parent.replaceChild(bioClone, charEl);
+                parent.replaceChild(charEl, bioEl);
             }
 
             // --- Загрузка персонала ---
@@ -2875,6 +3425,7 @@
             loadAboutAndFeatures();
             loadReviews();
             loadRules();
+            loadUnions();
             loadResidents();
             loadRegistration();
             loadStaff();
