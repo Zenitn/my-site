@@ -149,7 +149,7 @@
         }
 
         /* ============================================================
-                   КАСТОМНЫЙ РАЗДЕЛИТЕЛЬ (увеличенный пунктир)
+                   КАСТОМНЫЙ РАЗДЕЛИТЕЛЬ
                    ============================================================ */
         .section-divider-custom {
             border: none;
@@ -392,7 +392,6 @@
             opacity: 0;
         }
 
-        /* Блок инструкции справа */
         .hero-instruction {
             background: rgba(255, 255, 255, 0.30);
             backdrop-filter: blur(16px) saturate(180%);
@@ -472,7 +471,7 @@
         }
 
         /* ============================================================
-                   О ПАНСИОНАТЕ (динамический контент)
+                   О ПАНСИОНАТЕ
                    ============================================================ */
         .about-dynamic-grid {
             display: grid;
@@ -565,7 +564,6 @@
             border-bottom-color: var(--primary);
         }
 
-        /* Карточки-фичи (динамические из "Ячейки") */
         .about-features {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -612,7 +610,7 @@
         }
 
         /* ============================================================
-                   ПЕРСОНАЛ (динамический)
+                   ПЕРСОНАЛ
                    ============================================================ */
         .staff-grid {
             display: grid;
@@ -749,7 +747,7 @@
         }
 
         /* ============================================================
-                   ОТЗЫВЫ (динамические, с раскрытием)
+                   ОТЗЫВЫ
                    ============================================================ */
         .reviews-grid {
             display: grid;
@@ -789,7 +787,6 @@
             font-weight: 300;
             font-style: italic;
             margin-bottom: 8px;
-            /* Обрезка через line-clamp */
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -827,12 +824,10 @@
             font-weight: 300;
         }
 
-        /* Скрытые карточки */
         .review-card.hidden-review {
             display: none;
         }
 
-        /* Кнопка показать все */
         .reviews-toggle {
             display: block;
             margin: 30px auto 0;
@@ -858,7 +853,7 @@
         }
 
         /* ============================================================
-                   ПРАВИЛА (компактные колонки)
+                   ПРАВИЛА
                    ============================================================ */
         .rules-grid {
             display: grid;
@@ -882,7 +877,7 @@
             color: #1a2634;
             margin-bottom: 10px;
         }
-                .rules-content {
+        .rules-content {
             max-height: 3.2em;
             overflow: hidden;
             transition: max-height 0.5s ease;
@@ -912,7 +907,7 @@
             margin-bottom: 8px;
             font-weight: 300;
         }
-                .rules-block ul {
+        .rules-block ul {
             list-style: disc;
             padding-left: 20px;
             margin: 4px 0 10px 0;
@@ -937,7 +932,7 @@
         }
 
         /* ============================================================
-                   СОЮЗЫ И ВЗ (динамический контент) — СТИЛЬНЫЕ КАРТОЧКИ
+                   СОЮЗЫ И ВЗ
                    ============================================================ */
         .unions-wrapper {
             display: flex;
@@ -1029,7 +1024,6 @@
             margin: 16px 0;
         }
 
-        /* === Список союзников (карточки) === */
         .allies-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -1118,7 +1112,6 @@
             margin: 0;
         }
 
-        /* Таблицы внутри динамического контента (для обратной совместимости) */
         .content-table-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -1164,7 +1157,7 @@
         }
 
         /* ============================================================
-                   ЖИЛЬЦЫ (компактные колонки)
+                   ЖИЛЬЦЫ
                    ============================================================ */
         .residents-grid {
             display: grid;
@@ -1209,7 +1202,6 @@
             border-color: var(--primary);
         }
 
-        /* OC-ы — на всю ширину */
         .residents-world.oc-world {
             grid-column: 1 / -1;
             background: rgba(30, 144, 255, 0.06);
@@ -1220,7 +1212,6 @@
             border-bottom-color: var(--primary);
         }
 
-        /* Специальные блоки: Бронь и Ожидают */
         .residents-extra {
             margin-top: 40px;
             display: grid;
@@ -1304,7 +1295,202 @@
         }
 
         /* ============================================================
-                   РЕГИСТРАЦИЯ — загружаемый контент
+                   СЧЁТЧИК ЛЮДЕЙ (уникальные ID)
+                   ============================================================ */
+        .people-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto 32px;
+            padding: 10px 24px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            box-shadow: var(--shadow-sm);
+            font-size: 1rem;
+            color: #1a2634;
+            font-weight: 500;
+        }
+        .people-count i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        .people-count .count-number {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        /* ============================================================
+                   СОРОЛЫ: ДВУХКОЛОНОЧНАЯ СКРЫТАЯ СЕКЦИЯ
+                   ============================================================ */
+        .soroly-details {
+            margin-top: 32px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius);
+            padding: 0;
+            overflow: hidden;
+        }
+        .soroly-details summary {
+            padding: 18px 24px;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #1a2634;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s ease;
+            user-select: none;
+        }
+        .soroly-details summary::-webkit-details-marker {
+            display: none;
+        }
+        .soroly-details summary:hover {
+            background: rgba(30, 144, 255, 0.05);
+        }
+        .soroly-details summary i {
+            color: var(--primary);
+        }
+        .soroly-details summary::after {
+            content: '▼';
+            font-size: 0.7rem;
+            color: var(--primary);
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+        .soroly-details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        .soroly-two-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            padding: 0 24px 24px;
+        }
+
+        .soroly-col > h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .soroly-col > h4 i {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .soroly-col > h4 .count-badge {
+            margin-left: auto;
+            font-size: 0.78rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* Левая колонка: те кто вне группы */
+        .soroly-no-group-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .soroly-person {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 8px;
+            padding: 7px 12px;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(30, 144, 255, 0.1);
+            font-size: 0.92rem;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        .soroly-person:hover {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: var(--primary);
+        }
+        .soroly-person .soroly-person-name {
+            font-weight: 500;
+            color: #1a2634;
+        }
+        .soroly-person .soroly-person-wish {
+            font-size: 0.82rem;
+            color: var(--gray-text);
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* Правая колонка: группы */
+        .soroly-groups-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .group-card {
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(30, 144, 255, 0.1);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+        }
+        .group-card h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--primary-light);
+        }
+        .group-card ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px 10px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .group-card ul li {
+            font-size: 0.9rem;
+            color: #2d3748;
+            padding: 2px 10px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            line-height: 1.5;
+        }
+        .group-card ul li .soroly-person-wish {
+            font-size: 0.75rem;
+            color: var(--gray-text);
+            font-style: italic;
+            margin-left: 3px;
+        }
+        .group-card ul li.npc {
+            color: var(--gray-text);
+            font-style: italic;
+        }
+
+        /* ============================================================
+                   РЕГИСТРАЦИЯ
                    ============================================================ */
         .registration-content {
             max-width: 800px;
@@ -1600,12 +1786,10 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            /* Мобильная навигация — выезжающий сайдбар */
             .navbar {
                 transform: translateX(-100%);
                 width: var(--sidebar-width);
                 box-shadow: none;
-                /* Отступ сверху, чтобы логотип и меню не перекрывались кнопкой-гамбургером */
                 padding-top: 80px;
                 padding-bottom: 32px;
                 height: 100vh;
@@ -1796,7 +1980,6 @@
                 text-align: center;
             }
 
-            /* Союзы на мобильных */
             .unions-block {
                 padding: 20px 18px 18px;
             }
@@ -1815,6 +1998,23 @@
             }
             .ally-name {
                 font-size: 1rem;
+            }
+
+            .soroly-details summary {
+                padding: 14px 16px;
+                font-size: 1.05rem;
+            }
+            .soroly-two-cols {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 16px 16px;
+            }
+            .people-count {
+                font-size: 0.9rem;
+                padding: 8px 18px;
+            }
+            .people-count .count-number {
+                font-size: 1.3rem;
             }
         }
 
@@ -2011,7 +2211,6 @@
         <section class="hero" id="hero">
             <div class="container">
                 <div class="hero-grid">
-                    <!-- Левая колонка: приветствие -->
                     <div class="hero-content">
                         <h1>
                             Добро пожаловать в<br />
@@ -2023,7 +2222,6 @@
                         </p>
                     </div>
 
-                    <!-- Правая колонка: инструкция по вступлению -->
                     <div class="hero-instruction glass">
                         <h3><i class="fas fa-clipboard-list"></i>Если вы:</h3>
                         <ul>
@@ -2043,13 +2241,10 @@
             </div>
         </section>
 
-        <!-- ============================================================
-        РАЗДЕЛИТЕЛЬ
-        ============================================================ -->
         <hr class="section-divider-custom" />
 
         <!-- ============================================================
-        О ПАНСИОНАТЕ (динамический контент)
+        О ПАНСИОНАТЕ
         ============================================================ -->
         <section class="section" id="about">
             <div class="container">
@@ -2065,7 +2260,6 @@
                     </div>
                 </div>
 
-                <!-- Карточки-фичи (динамически загружаются из "Ячейки") -->
                 <div id="featuresContent" class="about-features fade-item delay-3">
                     <div class="loading-placeholder" style="grid-column:1/-1; padding:20px 0;">
                         <i class="fas fa-spinner fa-pulse"></i>
@@ -2076,7 +2270,7 @@
         </section>
 
         <!-- ============================================================
-        ПЕРСОНАЛ (динамический)
+        ПЕРСОНАЛ
         ============================================================ -->
         <section class="section" id="rest" style="background: var(--gray-bg);">
             <div class="container">
@@ -2089,7 +2283,6 @@
                     <div class="staff-list fade-item delay-1">
                         <h3>Администрация:</h3>
                         <ul id="staffList">
-                            <!-- Список будет заполнен динамически -->
                             <li style="text-align:center; color:var(--gray-text); padding:16px;">Загрузка...</li>
                         </ul>
                     </div>
@@ -2114,7 +2307,7 @@
         </section>
 
         <!-- ============================================================
-        ОТЗЫВЫ (динамические, с раскрытием)
+        ОТЗЫВЫ
         ============================================================ -->
         <section class="section" id="reviews">
             <div class="container">
@@ -2132,7 +2325,7 @@
         </section>
 
         <!-- ============================================================
-        ПРАВИЛА (динамические, компактные)
+        ПРАВИЛА
         ============================================================ -->
         <section class="section" id="rules" style="background: var(--gray-bg);">
             <div class="container">
@@ -2150,7 +2343,7 @@
         </section>
 
         <!-- ============================================================
-        СОЮЗЫ И ВЗ (динамический контент) — сразу после правил
+        СОЮЗЫ И ВЗ
         ============================================================ -->
         <section class="section" id="unions">
             <div class="container">
@@ -2168,13 +2361,14 @@
         </section>
 
         <!-- ============================================================
-        ЖИЛЬЦЫ (динамические, включая бронь и ожидания)
+        ЖИЛЬЦЫ
         ============================================================ -->
         <section class="section" id="residents">
             <div class="container">
                 <div class="text-center fade-item">
                     <h2 class="section-title">Занятые <span class="accent">роли</span></h2>
                     <p class="section-subtitle">Список текущих участников</p>
+                    <div id="peopleCount" class="people-count"></div>
                 </div>
                 <div id="residentsContent" class="fade-item delay-1">
                     <div class="loading-placeholder">
@@ -2186,7 +2380,7 @@
         </section>
 
         <!-- ============================================================
-        РЕГИСТРАЦИЯ — загружаемый контент (без формы)
+        РЕГИСТРАЦИЯ
         ============================================================ -->
         <section class="section" id="registration" style="background: var(--gray-bg);">
             <div class="container">
@@ -2288,7 +2482,6 @@
                 icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
             });
 
-            // Закрываем меню при клике по ссылке
             navbar.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function() {
                     navbar.classList.remove('open');
@@ -2437,7 +2630,6 @@
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
 
-                    // --- 1. О пансионате ---
                     const aboutHeading = doc.getElementById('o-pansionate');
                     if (!aboutHeading) {
                         aboutContainer.innerHTML =
@@ -2508,7 +2700,6 @@
                         }
                     }
 
-                    // --- 2. Ячейки (карточки-фичи) ---
                     const cellsHeading = doc.getElementById('yachejki');
                     if (!cellsHeading) {
                         featuresContainer.innerHTML =
@@ -2576,7 +2767,7 @@
                 }
             }
 
-            // --- Загрузка отзывов (с раскрытием и кнопкой "читать полностью") ---
+            // --- Загрузка отзывов ---
             async function loadReviews() {
                 try {
                     const response = await fetch(BASE_URL);
@@ -2592,7 +2783,6 @@
                         return;
                     }
 
-                    // Ищем таблицу после заголовка
                     let table = null;
                     let node = reviewsHeading.nextElementSibling;
                     while (node) {
@@ -2620,7 +2810,6 @@
                         return;
                     }
 
-                    // Определяем индексы столбцов: Кто, Оценка, Сам отзыв
                     const headers = table.querySelectorAll('thead th');
                     let whoIdx = -1,
                         scoreIdx = -1,
@@ -2646,7 +2835,6 @@
                         const score = cells[scoreIdx].textContent.trim() || '—';
                         const text = cells[textIdx].textContent.trim() || 'Без отзыва';
 
-                        // Определяем, скрыта ли карточка изначально (первые 4 показываем)
                         const hiddenClass = index >= 4 ? ' hidden-review' : '';
                         const hiddenAttr = index >= 4 ? 'true' : 'false';
 
@@ -2662,7 +2850,6 @@
                     });
                     reviewsHtml += '</div>';
 
-                    // Если отзывов больше 4, добавляем кнопку показать все
                     const hiddenCount = rows.length > 4 ? rows.length - 4 : 0;
                     if (hiddenCount > 0) {
                         reviewsHtml += `
@@ -2672,7 +2859,6 @@
 
                     reviewsContainer.innerHTML = reviewsHtml;
 
-                    // --- Обработчик для кнопок "читать полностью" (делегирование) ---
                     reviewsContainer.addEventListener('click', function(e) {
                         const btn = e.target.closest('.read-more-btn');
                         if (btn) {
@@ -2685,19 +2871,16 @@
                         }
                     });
 
-                    // --- Обработчик для кнопки "Показать все / Скрыть" ---
                     const toggleBtn = document.getElementById('reviewsToggle');
                     if (toggleBtn) {
                         let expanded = false;
                         toggleBtn.addEventListener('click', function() {
                             const hiddenCards = reviewsContainer.querySelectorAll('.review-card[data-hidden="true"]');
                             if (expanded) {
-                                // Скрываем все, которые были скрыты изначально
                                 hiddenCards.forEach(card => card.classList.add('hidden-review'));
                                 this.textContent = `Показать все (${hiddenCards.length})`;
                                 expanded = false;
                             } else {
-                                // Показываем все
                                 hiddenCards.forEach(card => card.classList.remove('hidden-review'));
                                 this.textContent = 'Скрыть';
                                 expanded = true;
@@ -2711,7 +2894,7 @@
                 }
             }
 
-            // --- Загрузка правил (с обрезкой и раскрытием) ---
+            // --- Загрузка правил ---
             async function loadRules() {
                 try {
                     const response = await fetch(BASE_URL);
@@ -2752,7 +2935,6 @@
 
                     let gridHtml = '<div class="rules-grid">';
                     blocks.forEach(block => {
-                        // Оборачиваем содержимое в контейнер с классом rules-content
                         const wrappedContent = `<div class="rules-content">${block.html}</div>`;
                         const readMoreBtn = `<button class="read-more-btn" data-action="toggle-rules">Читать полностью</button>`;
                         gridHtml += `
@@ -2766,7 +2948,6 @@
                     gridHtml += '</div>';
                     rulesContainer.innerHTML = gridHtml;
 
-                    // Обработчик для кнопок "читать полностью" в правилах
                     rulesContainer.addEventListener('click', function(e) {
                         const btn = e.target.closest('.read-more-btn');
                         if (btn && btn.dataset.action === 'toggle-rules') {
@@ -2786,7 +2967,6 @@
             }
 
             // --- Загрузка союзов и ВЗ ---
-            // Формат: карточки «Название (ссылка) + Дополнительно»
             async function loadUnions() {
                 try {
                     const response = await fetch(BASE_URL);
@@ -2802,7 +2982,6 @@
                         return;
                     }
 
-                    // Собираем все узлы до следующего H1
                     const nodes = [];
                     let node = unionsHeading.nextElementSibling;
                     while (node && node.tagName !== 'H1') {
@@ -2816,7 +2995,6 @@
                         return;
                     }
 
-                    // --- 1. Парсим таблицу союзников ---
                     let allies = [];
                     let introRows = [];
 
@@ -2844,9 +3022,7 @@
                             }
                         });
                         if (nameIdx === -1) nameIdx = 0;
-                        // Если отдельного столбца "Дополнительно" нет — берём последний столбец как "дополнительно"
                         if (extraIdx === -1 && headers.length >= 2) {
-                            // Ищем любой столбец, кроме name и link, для доп. сведений
                             for (let i = headers.length - 1; i >= 0; i--) {
                                 if (i !== nameIdx && i !== linkIdx) {
                                     extraIdx = i;
@@ -2864,16 +3040,13 @@
                             const extraCell = (extraIdx !== -1 && cells[extraIdx]) ? cells[extraIdx] : null;
 
                             const nameText = nameCell ? nameCell.textContent.trim() : '';
-                            const nameHtml = nameCell ? nameCell.innerHTML.trim() : '';
                             const linkText = linkCell ? linkCell.textContent.trim() : '';
                             const linkHtml = linkCell ? linkCell.innerHTML.trim() : '';
                             const extraText = extraCell ? extraCell.textContent.trim() : '';
                             const extraHtml = extraCell ? extraCell.innerHTML.trim() : '';
 
-                            // Полностью пустая строка
                             if (!nameText && !linkText && !extraText) return;
 
-                            // Определяем ссылку
                             let href = '';
                             const nameAnchor = nameCell ? nameCell.querySelector('a') : null;
                             const linkAnchor = linkCell ? linkCell.querySelector('a') : null;
@@ -2885,35 +3058,29 @@
                                 href = linkText;
                             }
 
-                            // Итоговое имя
                             let finalName = nameText || linkText;
-                            // Доп. сведения: берём extraCell, а если его нет — берём linkCell
                             let finalExtraHtml = extraHtml;
                             if (!finalExtraHtml && linkCell && linkText && !/^https?:/i.test(linkText)) {
                                 finalExtraHtml = linkHtml;
                             }
 
                             if (href) {
-                                // Это союзник
                                 allies.push({
                                     name: finalName || 'Союзник',
                                     href: href,
                                     extra: finalExtraHtml
                                 });
                             } else if (nameText) {
-                                // Это описательный текст (условия)
                                 introRows.push(nameText);
                             }
                         });
                     });
 
-                    // --- 2. Парсим остальной контент (UL, P, HR) ---
                     let beforeHr = '';
                     let afterHr = '';
                     let hrPassed = false;
 
                     nodes.forEach(function(el) {
-                        // Пропускаем таблицы — они уже обработаны
                         if (el.tagName === 'TABLE') return;
                         if (el.tagName === 'DIV' && el.classList.contains('table-wrapper')) return;
 
@@ -2929,10 +3096,8 @@
                         }
                     });
 
-                    // --- 3. Формируем вывод ---
                     let output = '<div class="unions-wrapper">';
 
-                    // 3.1. Союзники (если есть)
                     if (allies.length > 0) {
                         output += '<div class="unions-block">';
                         output += '<h3><i class="fas fa-handshake"></i>Наши союзники</h3>';
@@ -2955,7 +3120,6 @@
                         output += '</div>';
                     }
 
-                    // 3.2. Условия (intro rows + beforeHr)
                     const hasConditions = introRows.length > 0 || beforeHr.trim();
                     if (hasConditions) {
                         output += '<div class="unions-block">';
@@ -2971,7 +3135,6 @@
                         output += '</div>';
                     }
 
-                    // 3.3. ВЗ (после HR)
                     if (afterHr.trim()) {
                         output += '<div class="unions-block">';
                         output += '<h3><i class="fas fa-bullhorn"></i>Взаимный пиар (ВЗ)</h3>';
@@ -2995,7 +3158,15 @@
                 }
             }
 
-            // --- Загрузка жильцов ---
+            // ============================================================
+            //   ЗАГРУЗКА ЖИЛЬЦОВ (финальная версия)
+            //   • Счётчик уникальных ID
+            //   • Обычный список по фандомам + OC
+            //   • Под ним — Брони и Ресты
+            //   • Ниже скрытая секция в 2 столбца:
+            //       слева — те кто вне группы (с пожеланиями),
+            //       справа — группки (с NPC)
+            // ============================================================
             async function loadResidents() {
                 try {
                     const response = await fetch(RESIDENTS_URL);
@@ -3011,56 +3182,211 @@
                         return;
                     }
 
-                    // Первая таблица — жильцы
+                    // ----------------------------------------------------
+                    // 1. ОСНОВНАЯ ТАБЛИЦА
+                    // ----------------------------------------------------
                     const table1 = tables[0];
                     const headers1 = table1.querySelectorAll('thead th');
                     let nameIdx = -1,
                         riskIdx = -1,
-                        worldIdx = -1;
+                        groupIdx = -1,
+                        worldIdx = -1,
+                        idIdx = -1;
                     headers1.forEach((th, idx) => {
                         const text = th.textContent.trim();
                         if (text === 'Имя') nameIdx = idx;
                         else if (text === 'Риск') riskIdx = idx;
+                        else if (text === 'Группа') groupIdx = idx;
                         else if (text === 'Мир источник') worldIdx = idx;
+                        else if (text === 'ID') idIdx = idx;
                     });
 
-                    if (nameIdx === -1 || riskIdx === -1 || worldIdx === -1) {
+                    if (nameIdx === -1) {
                         residentsContainer.innerHTML =
-                            '<div class="error-placeholder"><i class="fas fa-exclamation-triangle"></i>Не удалось найти нужные столбцы в таблице жильцов.</div>';
+                            '<div class="error-placeholder"><i class="fas fa-exclamation-triangle"></i>Не удалось найти столбец «Имя».</div>';
                         return;
                     }
+                    if (idIdx === -1) idIdx = 3; // fallback
+
+                    const uniqueIds = new Set();
+                    const worldMap = {};          // фандом → [имена]
+                    const ocNames = [];           // OC-ы (без фандома)
+                    const groups = {};            // номер → [{name, note}]
+                    const noGroup = [];           // [{name, wish}] — те кто вне группы
 
                     const rows1 = table1.querySelectorAll('tbody tr');
-                    const worldMap = {};
-                    let ocNames = [];
-
                     rows1.forEach(row => {
                         const cells = row.querySelectorAll('td');
-                        if (cells.length <= Math.max(nameIdx, riskIdx, worldIdx)) return;
-                        const risk = cells[riskIdx].textContent.trim();
-                        if (risk === 'с' || risk === '') return;
+                        if (cells.length <= Math.max(nameIdx, riskIdx, groupIdx, worldIdx, idIdx)) return;
+
+                        const risk = riskIdx !== -1 ? cells[riskIdx].textContent.trim() : '';
+                        if (risk === 'с') return;
 
                         const name = cells[nameIdx].textContent.trim();
-                        let world = cells[worldIdx].textContent.trim();
-
                         if (!name) return;
 
-                        if (!world) {
-                            ocNames.push(name);
-                        } else {
-                            if (!worldMap[world]) {
-                                worldMap[world] = [];
-                            }
+                        const id = cells[idIdx] ? cells[idIdx].textContent.trim() : '';
+                        if (id) uniqueIds.add(id);
+
+                        const world = worldIdx !== -1 ? cells[worldIdx].textContent.trim() : '';
+
+                        // ---- Разбор поля «Группа» ----
+                        let groupNumbers = [];
+                        let wishText = '';
+                        if (groupIdx !== -1 && cells[groupIdx]) {
+                            const groupCell = cells[groupIdx];
+                            let groupHtml = groupCell.innerHTML.replace(/<br\s*\/?>/gi, ' ');
+                            const groupText = groupHtml
+                                .replace(/<[^>]*>/g, '')
+                                .replace(/&nbsp;/g, ' ')
+                                .replace(/&amp;/g, '&')
+                                .trim();
+
+                            const tokens = groupText.split(/\s+/).filter(t => t);
+                            const wishParts = [];
+                            tokens.forEach(tok => {
+                                const stripped = tok.replace(/[,;.]+$/, '');
+                                if (/^\d+$/.test(stripped)) {
+                                    groupNumbers.push(stripped);
+                                } else {
+                                    wishParts.push(tok);
+                                }
+                            });
+                            wishText = wishParts.join(' ').trim();
+                        }
+
+                        // ---- 1. Обычный список (по фандомам + OC) ----
+                        if (world) {
+                            if (!worldMap[world]) worldMap[world] = [];
                             worldMap[world].push(name);
+                        } else {
+                            ocNames.push(name);
+                        }
+
+                        // ---- 2. Соролы ----
+                        if (groupNumbers.length > 0) {
+                            groupNumbers.forEach(num => {
+                                if (!groups[num]) groups[num] = [];
+                                groups[num].push({ name: name, note: wishText });
+                            });
+                        } else {
+                            noGroup.push({ name: name, wish: wishText });
                         }
                     });
 
-                    const sortedWorlds = Object.keys(worldMap).sort((a, b) => a.localeCompare(b, 'ru'));
-                    Object.keys(worldMap).forEach(w => {
-                        worldMap[w].sort((a, b) => a.localeCompare(b, 'ru'));
-                    });
-                    ocNames.sort((a, b) => a.localeCompare(b, 'ru'));
+                    // ----------------------------------------------------
+                    // 2. СЧЁТЧИК ЛЮДЕЙ
+                    // ----------------------------------------------------
+                    const peopleCountEl = document.getElementById('peopleCount');
+                    if (peopleCountEl) {
+                        peopleCountEl.innerHTML = `
+                            <i class="fas fa-users"></i>
+                            <span>Людей в проекте:</span>
+                            <span class="count-number">${uniqueIds.size}</span>
+                        `;
+                    }
 
+                    // ----------------------------------------------------
+                    // 3. РЕСТЫ
+                    // ----------------------------------------------------
+                    const rests = [];
+                    if (tables.length > 1) {
+                        const table2 = tables[1];
+                        const headers2 = table2.querySelectorAll('thead th');
+                        let whoIdx = -1,
+                            untilIdx = -1;
+                        headers2.forEach((th, idx) => {
+                            const text = th.textContent.trim();
+                            if (text.includes('У кого рест')) whoIdx = idx;
+                            else if (text.includes('До какого')) untilIdx = idx;
+                        });
+                        if (whoIdx !== -1) {
+                            table2.querySelectorAll('tbody tr').forEach(row => {
+                                const cells = row.querySelectorAll('td');
+                                if (cells.length <= whoIdx) return;
+                                const whoCell = cells[whoIdx];
+                                const whoHtml = whoCell.innerHTML.replace(/<br\s*\/?>/gi, ', ');
+                                const who = whoHtml
+                                    .replace(/<[^>]*>/g, '')
+                                    .replace(/,\s*,/g, ',')
+                                    .replace(/,\s*$/, '')
+                                    .trim();
+                                const until = untilIdx !== -1 && cells[untilIdx] ? cells[untilIdx].textContent.trim() : '';
+                                if (who) rests.push({ who, until });
+                            });
+                        }
+                    }
+
+                    // ----------------------------------------------------
+                    // 4. БРОНИ
+                    // ----------------------------------------------------
+                    const bookings = [];
+                    if (tables.length > 2) {
+                        const table3 = tables[2];
+                        const headers3 = table3.querySelectorAll('thead th');
+                        let whoIdx = -1,
+                            untilIdx = -1;
+                        headers3.forEach((th, idx) => {
+                            const text = th.textContent.trim();
+                            if (text.includes('На кого бронь')) whoIdx = idx;
+                            else if (text.includes('До какого')) untilIdx = idx;
+                        });
+                        if (whoIdx !== -1) {
+                            table3.querySelectorAll('tbody tr').forEach(row => {
+                                const cells = row.querySelectorAll('td');
+                                if (cells.length <= whoIdx) return;
+                                const who = cells[whoIdx].textContent.trim();
+                                const until = untilIdx !== -1 && cells[untilIdx] ? cells[untilIdx].textContent.trim() : '';
+                                if (who) bookings.push({ who, until });
+                            });
+                        }
+                    }
+
+                    // ----------------------------------------------------
+                    // 5. NPC-ГРУППЫ
+                    // ----------------------------------------------------
+                    const npcGroups = {};
+                    if (tables.length > 3) {
+                        const table4 = tables[3];
+                        const headers4 = table4.querySelectorAll('thead th');
+                        let npcNameIdx = -1,
+                            npcGroupIdx = -1;
+                        headers4.forEach((th, idx) => {
+                            const text = th.textContent.trim();
+                            if (text.includes('NPC') || text.includes('Доп. Роль')) npcNameIdx = idx;
+                            else if (text === 'Группа') npcGroupIdx = idx;
+                        });
+                        if (npcNameIdx !== -1 && npcGroupIdx !== -1) {
+                            table4.querySelectorAll('tbody tr').forEach(row => {
+                                const cells = row.querySelectorAll('td');
+                                if (cells.length <= Math.max(npcNameIdx, npcGroupIdx)) return;
+                                const npcName = cells[npcNameIdx].textContent.trim();
+                                const npcGroup = cells[npcGroupIdx].textContent.trim();
+                                if (npcName && npcGroup) {
+                                    if (!npcGroups[npcGroup]) npcGroups[npcGroup] = [];
+                                    npcGroups[npcGroup].push(npcName);
+                                }
+                            });
+                        }
+                    }
+
+                    // ----------------------------------------------------
+                    // 6. СОРТИРОВКА
+                    // ----------------------------------------------------
+                    const sortedWorlds = Object.keys(worldMap).sort((a, b) => a.localeCompare(b, 'ru'));
+                    Object.keys(worldMap).forEach(w => worldMap[w].sort((a, b) => a.localeCompare(b, 'ru')));
+                    ocNames.sort((a, b) => a.localeCompare(b, 'ru'));
+                    noGroup.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+                    rests.sort((a, b) => a.who.localeCompare(b.who, 'ru'));
+                    bookings.sort((a, b) => a.who.localeCompare(b.who, 'ru'));
+                    const sortedGroupKeys = Object.keys(groups).sort((a, b) => Number(a) - Number(b));
+                    sortedGroupKeys.forEach(k => groups[k].sort((a, b) => a.name.localeCompare(b.name, 'ru')));
+
+                    // ----------------------------------------------------
+                    // 7. ФОРМИРОВАНИЕ HTML
+                    // ----------------------------------------------------
+
+                    // ----- 7.1. Обычный список (фандомы + OC) -----
                     let gridHtml = '<div class="residents-grid">';
 
                     if (ocNames.length > 0) {
@@ -3073,6 +3399,7 @@
 
                     sortedWorlds.forEach(world => {
                         const names = worldMap[world];
+                        if (names.length === 0) return;
                         gridHtml += `<div class="residents-world"><h4>${world}</h4><ul>`;
                         names.forEach(name => {
                             gridHtml += `<li>${name}</li>`;
@@ -3082,75 +3409,118 @@
 
                     gridHtml += '</div>';
 
-                    // Вторая таблица — бронь/ожидают
+                    // ----- 7.2. Брони и Ресты -----
                     let extraHtml = '';
-                    if (tables.length > 1) {
-                        const table2 = tables[1];
-                        const headers2 = table2.querySelectorAll('thead th');
-                        let typeIdx = -1,
-                            whoIdx = -1,
-                            whomIdx = -1,
-                            noteIdx = -1;
-                        headers2.forEach((th, idx) => {
-                            const text = th.textContent.trim();
-                            if (text === 'Тип') typeIdx = idx;
-                            else if (text === 'Кто') whoIdx = idx;
-                            else if (text === 'Кого') whomIdx = idx;
-                            else if (text === 'Уточнение при нажатие/наведение.') noteIdx = idx;
+                    const hasExtra = rests.length > 0 || bookings.length > 0;
+                    if (hasExtra) {
+                        extraHtml = '<div class="residents-extra">';
+
+                        if (rests.length > 0) {
+                            extraHtml += `<div class="residents-extra-block"><h4><i class="fas fa-bed"></i> Рест</h4><ul>`;
+                            rests.forEach(item => {
+                                extraHtml += `<li><span class="who">${item.who}</span>`;
+                                if (item.until && item.until !== '-') {
+                                    extraHtml += ` — <span class="whom">до ${item.until}</span>`;
+                                } else if (item.until === '-') {
+                                    extraHtml += ` — <span class="whom">без срока</span>`;
+                                }
+                                extraHtml += `</li>`;
+                            });
+                            extraHtml += `</ul></div>`;
+                        }
+
+                        if (bookings.length > 0) {
+                            extraHtml += `<div class="residents-extra-block"><h4><i class="fas fa-bookmark"></i> Бронь</h4><ul>`;
+                            bookings.forEach(item => {
+                                extraHtml += `<li><span class="who">${item.who}</span>`;
+                                if (item.until && item.until !== '-') {
+                                    extraHtml += ` — <span class="whom">до ${item.until}</span>`;
+                                } else if (item.until === '-') {
+                                    extraHtml += ` — <span class="whom">без срока</span>`;
+                                }
+                                extraHtml += `</li>`;
+                            });
+                            extraHtml += `</ul></div>`;
+                        }
+
+                        extraHtml += '</div>';
+                    }
+
+                    // ----- 7.3. Скрытая секция: две колонки (группы + те кто вне группы) -----
+                    let sorolyHtml = '';
+                    const hasGroupsOrNoGroup = sortedGroupKeys.length > 0 || noGroup.length > 0;
+                    if (hasGroupsOrNoGroup) {
+                        // Считаем количество групп с участниками/NPC
+                        let realGroupCount = 0;
+                        sortedGroupKeys.forEach(g => {
+                            const hasMembers = groups[g] && groups[g].length > 0;
+                            const hasNpc = npcGroups[g] && npcGroups[g].length > 0;
+                            if (hasMembers || hasNpc) realGroupCount++;
                         });
 
-                        if (typeIdx !== -1 && whoIdx !== -1) {
-                            const rows2 = table2.querySelectorAll('tbody tr');
-                            const waiting = [];
-                            const booked = [];
+                        sorolyHtml += `<details class="soroly-details">`;
+                        sorolyHtml += `<summary><i class="fas fa-users"></i> СОРОЛЫ: Группки и те, кто вне группы</summary>`;
+                        sorolyHtml += `<div class="soroly-two-cols">`;
 
-                            rows2.forEach(row => {
-                                const cells = row.querySelectorAll('td');
-                                if (cells.length <= Math.max(typeIdx, whoIdx, whomIdx, noteIdx)) return;
-                                const type = cells[typeIdx].textContent.trim();
-                                const who = cells[whoIdx].textContent.trim();
-                                const whom = cells[whomIdx] ? cells[whomIdx].textContent.trim() : '';
-                                const note = cells[noteIdx] ? cells[noteIdx].textContent.trim() : '';
-
-                                if (type === 'Ждёт') {
-                                    waiting.push({ who, whom, note });
-                                } else if (type === 'Бронь') {
-                                    booked.push({ who, whom, note });
-                                }
+                        // ---- Левая колонка: те кто вне группы ----
+                        sorolyHtml += `<div class="soroly-col soroly-col-left">`;
+                        sorolyHtml += `<h4><i class="fas fa-user"></i> Вне группы <span class="count-badge">${noGroup.length}</span></h4>`;
+                        if (noGroup.length === 0) {
+                            sorolyHtml += `<div class="loading-placeholder" style="padding:16px 0;font-size:0.9rem;"><i class="fas fa-smile" style="opacity:0.3;"></i>Все распределены</div>`;
+                        } else {
+                            sorolyHtml += `<ul class="soroly-no-group-list">`;
+                            noGroup.forEach(item => {
+                                const wishHtml = item.wish
+                                    ? `<span class="soroly-person-wish">— ${item.wish}</span>`
+                                    : '';
+                                sorolyHtml += `
+                                    <li class="soroly-person">
+                                        <span class="soroly-person-name">${item.name}</span>
+                                        ${wishHtml}
+                                    </li>
+                                `;
                             });
-
-                            if (waiting.length > 0 || booked.length > 0) {
-                                extraHtml = '<div class="residents-extra">';
-                                if (booked.length > 0) {
-                                    extraHtml += `<div class="residents-extra-block"><h4>Бронь</h4><ul>`;
-                                    booked.forEach(item => {
-                                        extraHtml += `<li><span class="who">${item.who}</span>`;
-                                        if (item.whom) extraHtml += ` → <span class="whom">${item.whom}</span>`;
-                                        if (item.note) extraHtml += `<span class="note">${item.note}</span>`;
-                                        extraHtml += `</li>`;
-                                    });
-                                    extraHtml += `</ul></div>`;
-                                }
-                                if (waiting.length > 0) {
-                                    extraHtml += `<div class="residents-extra-block"><h4>Ожидают</h4><ul>`;
-                                    waiting.forEach(item => {
-                                        extraHtml += `<li><span class="who">${item.who}</span>`;
-                                        if (item.whom) extraHtml += ` → <span class="whom">${item.whom}</span>`;
-                                        if (item.note) extraHtml += `<span class="note">${item.note}</span>`;
-                                        extraHtml += `</li>`;
-                                    });
-                                    extraHtml += `</ul></div>`;
-                                }
-                                extraHtml += '</div>';
-                            }
+                            sorolyHtml += `</ul>`;
                         }
+                        sorolyHtml += `</div>`;
+
+                        // ---- Правая колонка: группы ----
+                        sorolyHtml += `<div class="soroly-col soroly-col-right">`;
+                        sorolyHtml += `<h4><i class="fas fa-users"></i> Группки <span class="count-badge">${realGroupCount}</span></h4>`;
+                        if (realGroupCount === 0) {
+                            sorolyHtml += `<div class="loading-placeholder" style="padding:16px 0;font-size:0.9rem;"><i class="fas fa-info-circle" style="opacity:0.3;"></i>Групп пока нет</div>`;
+                        } else {
+                            sorolyHtml += `<div class="soroly-groups-list">`;
+                            sortedGroupKeys.forEach(groupNum => {
+                                const members = groups[groupNum] || [];
+                                const npcList = npcGroups[groupNum] || [];
+                                if (members.length === 0 && npcList.length === 0) return;
+
+                                sorolyHtml += `<div class="group-card">`;
+                                sorolyHtml += `<h4>Группа ${groupNum}</h4>`;
+                                sorolyHtml += `<ul>`;
+                                members.forEach(m => {
+                                    const noteHtml = m.note
+                                        ? `<span class="soroly-person-wish">(${m.note})</span>`
+                                        : '';
+                                    sorolyHtml += `<li>${m.name}${noteHtml}</li>`;
+                                });
+                                npcList.forEach(npc => {
+                                    sorolyHtml += `<li class="npc">${npc} (NPC)</li>`;
+                                });
+                                sorolyHtml += `</ul>`;
+                                sorolyHtml += `</div>`;
+                            });
+                            sorolyHtml += `</div>`;
+                        }
+                        sorolyHtml += `</div>`;
+
+                        sorolyHtml += `</div>`;
+                        sorolyHtml += `</details>`;
                     }
 
-                    let fullHtml = gridHtml;
-                    if (extraHtml) {
-                        fullHtml += extraHtml;
-                    }
-                    residentsContainer.innerHTML = fullHtml;
+                    // ----- 7.4. Сборка -----
+                    residentsContainer.innerHTML = gridHtml + extraHtml + sorolyHtml;
 
                 } catch (error) {
                     residentsContainer.innerHTML =
@@ -3158,7 +3528,7 @@
                 }
             }
 
-            // --- Загрузка регистрации (с обменом "Характер" и "Биография") ---
+            // --- Загрузка регистрации ---
             async function loadRegistration() {
                 try {
                     const response = await fetch(BASE_URL);
@@ -3187,7 +3557,6 @@
                         return;
                     }
 
-                    // --- Обмен "Характер" и "Биография" ---
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = contentHtml;
 
@@ -3240,7 +3609,6 @@
 
             // --- Вспомогательная функция: обмен полей "Характер" и "Биография" ---
             function swapCharacterAndBio(container) {
-                // Ищем все элементы, чей текст начинается с "Характер" или "Биография"
                 const allEls = Array.from(container.querySelectorAll('*'));
                 let charEl = null;
                 let bioEl = null;
@@ -3256,7 +3624,6 @@
                     }
                 });
 
-                // Если нашли — предпочитаем самые «мелкие» (глубокие) элементы
                 if (charEl && bioEl) {
                     const charCandidates = allEls.filter(el => /^характер\b/.test(el.textContent.trim().toLowerCase()));
                     const bioCandidates = allEls.filter(el => /^биография\b/.test(el.textContent.trim().toLowerCase()));
@@ -3271,7 +3638,6 @@
                 if (!charEl || !bioEl || charEl === bioEl) return;
                 if (charEl.parentNode !== bioEl.parentNode) return;
 
-                // Меняем местами через клонирование
                 const parent = charEl.parentNode;
                 const bioClone = bioEl.cloneNode(true);
                 parent.replaceChild(bioClone, charEl);
